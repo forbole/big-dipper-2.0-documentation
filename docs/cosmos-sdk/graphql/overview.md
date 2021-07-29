@@ -1,0 +1,2 @@
+# BDJuno
+gql setup
