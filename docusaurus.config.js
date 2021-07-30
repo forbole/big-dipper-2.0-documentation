@@ -13,6 +13,7 @@ module.exports = {
   organizationName: 'forbole', // Usually your GitHub org/user name.
   projectName: 'big dipper 2.0', // Usually your repo name.
   themeConfig: {
+    image: 'assets/cover.png',
     navbar: {
       title: 'Big Dipper 2.0 Documentation',
       logo: {
@@ -20,12 +21,12 @@ module.exports = {
         src: 'assets/logo.png',
       },
       items: [
-        {
-          type: 'doc',
-          docId: 'intro',
-          position: 'left',
-          label: 'Documentation',
-        },
+        // {
+        //   type: 'doc',
+        //   docId: 'intro',
+        //   position: 'left',
+        //   label: 'Documentation',
+        // },
       ],
     },
     footer: {
