@@ -3,8 +3,9 @@ sidebar_position: 1
 slug: /
 ---
 # Overview
-## wip come back later
+
 Big Dipper is an open-source block explorer and token management tool serving over 10 proof-of-stake blockchains. It has been forked more than 100 times on GitHub and has served audiences from 140 countries and regions.
+
 
 Visit [Big Dipper](https://bigdipper.live/) to see a complete list of chains.
 

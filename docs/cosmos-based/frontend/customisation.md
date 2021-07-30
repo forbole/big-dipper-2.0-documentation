@@ -1,6 +1,6 @@
 ---
 title: Customisation
-sidebar: 10
+sidebar_position: 2
 ---
 
 You are free to change big dipper however you'd like to fit your needs. Below will be some basic changes available.
