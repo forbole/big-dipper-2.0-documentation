@@ -68,7 +68,7 @@ This section contains the details of the chain configuration regarding the Cosmo
 
 ### Supported modules
 
-Currently we support the followings Cosmos modules:
+Currently, we support the followings Cosmos modules:
 
 - `auth` to parse the `x/auth` data
 - `bank` to parse the `x/bank` data
@@ -77,6 +77,7 @@ Currently we support the followings Cosmos modules:
    - average block times (since genesis, in a day, in an hour, in a minute)
 - `distribution` to parse the `x/distribution` data
 - `gov` to parse the `x/gox` data
+- `messages` to parse the various messages inside a separate table
 - `mint` to parse the `x/mint` data
 - `modules` to get the list of enabled modules inside BDJuno
 - `pricefeed` to get the token prices
@@ -89,6 +90,15 @@ Currently we support the followings Cosmos modules:
      - the delegated amount
      - the delegation reward 
      - the validator commission reward
+
+:::caution Module order  
+When listing the different modules to be used, please note that there is some order that must be respected. In particular: 
+
+- `modules` should be listed before every other module
+- `messages` should be listed after the `modules` module and before every other module 
+- `distribution` must be listed **after** the `staking` module
+
+:::
 
 ## `rpc`
 
