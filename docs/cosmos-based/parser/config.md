@@ -72,7 +72,9 @@ Currently we support the followings Cosmos modules:
 
 - `auth` to parse the `x/auth` data
 - `bank` to parse the `x/bank` data
-- `consensus` to parse the consensus data
+- `consensus` to parse the consensus data. This includes:
+   - the genesis details
+   - average block times (since genesis, in a day, in an hour, in a minute)
 - `distribution` to parse the `x/distribution` data
 - `gov` to parse the `x/gox` data
 - `mint` to parse the `x/mint` data
@@ -80,6 +82,13 @@ Currently we support the followings Cosmos modules:
 - `pricefeed` to get the token prices
 - `slashing` to parse the `x/slashing` data
 - `staking` to parse the `x/staking` data
+- `history` to store historical data. This is currently limited to
+  - historical price data, stored everytime the price changes
+  - historical account balance, which includes:
+     - the available balance
+     - the delegated amount
+     - the delegation reward 
+     - the validator commission reward
 
 ## `rpc`
 
