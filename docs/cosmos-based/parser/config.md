@@ -45,6 +45,10 @@ keep_recent = 100
 [logging]
 format = "text"
 level = "debug"
+
+[telemetry]
+enabled = false
+port = 5000
 ```
 
 Let's see what each section refers to:
@@ -56,6 +60,7 @@ Let's see what each section refers to:
 - [`database`](#database)
 - [`pruning`](#pruning)
 - [`logging`](#logging)
+- [`telemetry`](#telemetry)
 
 ## `cosmos`
 
@@ -165,3 +170,16 @@ This section allows to configure the logging details of BDJuno.
 | :-------: | :---: | :--------- | :------ |
 | `format` | `string` | Format in which the logs should be output (either `json` or `text`) | `json` | 
 | `level` | `string` | Level of the log (either `verbose`, `debug`, `info`, `warn` or `error`) | `error` | 
+
+## `telemetry`
+
+This section allows to configure the telemetry details of Juno.
+
+| Attribute | Type | Description | Example |
+| :-------: | :---: | :--------- | :------ |
+| `enabled` | `bool` | Whether the telemetry should be enabled or not | `false` | 
+| `port` | `uint` | Port on which the telemetry server will listen | `8000` | 
+
+:::tip    
+If the telemetry server is enabled, a new endpoint at the provided port and path `/metrics` will expose [Prometheus](https://prometheus.io/) data.
+:::
