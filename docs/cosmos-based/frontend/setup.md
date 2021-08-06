@@ -33,7 +33,7 @@ NEXT_PUBLIC_WS_CHAIN_URL=
 ## Update chain_config.json
 In `src/configs/chain_config.json` update the json to fit your needs.
 
-For a better understanding of what each section and field refers to, please read the [config reference](chain-config).
+For a better understanding of what each section and field refers to, please read the [config reference](chain-config.md).
 
 If you have more than one native token please insert it as the following `the base token needs [x] exponents to display the following token unit`
 
