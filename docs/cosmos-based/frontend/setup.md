@@ -4,10 +4,10 @@ sidebar_position: 1
 ---
 
 ## Setup the environment
-Git clone and check out our [tag releases](https://github.com/forbole/big-dipper-2.0-cosmos/tags) for the most stable version. If you're feeling frisky feel free to use the master branch.
+Fork and clone and check out our [tag releases](https://github.com/forbole/big-dipper-2.0-cosmos/tags) for the most stable version. If you're feeling frisky feel free to use the master branch.
 
 ```
-git clone https://github.com/forbole/big-dipper-2.0-cosmos.git
+git clone https://github.com/<user>/big-dipper-2.0-cosmos.git
 git checkout <tag>
 npm ci
 ```
@@ -32,6 +32,8 @@ NEXT_PUBLIC_WS_CHAIN_URL=
 
 ## Update chain_config.json
 In `src/configs/chain_config.json` update the json to fit your needs.
+
+For a better understanding of what each section and field refers to, please read the [config reference](chain-config.md).
 
 If you have more than one native token please insert it as the following `the base token needs [x] exponents to display the following token unit`
 
@@ -81,7 +83,7 @@ npm run dev
 `npm run graphql:codegen` - rebuilds gql types if anything in the `src/graphql` folder has changed
 
 ## Docker
-If you want to use this with docker update update the following ENV Variables:
+If you want to use this with docker update the following ENV Variables inside the `Dockerfile`:
 
 ```
 ENV NEXT_PUBLIC_GRAPHQL_URL <your_url>
