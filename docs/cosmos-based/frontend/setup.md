@@ -55,7 +55,7 @@ If you have more than one native token please insert it as the following `the ba
 ```
 
 :::tip
-Turn `desmosProfile` on if your chain uses the desmos profile.
+Turn `desmosProfile` on if you want to display desmos profile for users that have a link.
 :::
 
 :::tip
