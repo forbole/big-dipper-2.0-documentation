@@ -10,9 +10,16 @@ The default `config.toml` file should look like the following:
 modules = []
 prefix = "cosmos"
 
+[pricefeed]
+tokens = [
+  { name = "Atom", units = [{ denom = "uatom", exponent = 0 }, { denom = "atom", exponent = 6 }] },
+  { name = "Photino", units = [{ denom = "uptn", exponent = 0 }, { denom = "ptn", exponent = 6 }] }
+]
+
 [rpc]
 address = "http://localhost:26657"
 client_name = "juno"
+max_connections = 20
 
 [grpc]
 address = "localhost:9090"
@@ -54,6 +61,7 @@ port = 5000
 Let's see what each section refers to:
 
 - [`cosmos`](#cosmos)
+- [`pricefeed`](#pricefeed)
 - [`rpc`](#rpc)
 - [`grpc`](#grpc)
 - [`parsing`](#parsing)
@@ -105,6 +113,23 @@ When listing the different modules to be used, please note that there is some or
 
 :::
 
+## `pricefeed`
+This section contains the data used by the `pricefeed` to fetch the prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
+
+The only fields required in this section is the `tokens` field, which must be an array of objects, each one containing two fields:
+- `name` represents the human-readable name of the token 
+- `units` contains a list of token units, each of them having the following attributes: 
+  - `denom` 
+  - `exponent` 
+
+:::tip Provide a valid denom  
+When fetching the various prices of the token, we will try and search for prices based on the `denom` of the units that you provide. 
+For this reason, you need to make sure that you provide at least a unit with a denom that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
+
+E.g. 
+If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN`, make sure you specify a token unit having denom `mtkn` and exponent `6` (or whatever amount of decimal places your token unit has). This will make sure the price is always fetched correctly.
+:::
+
 ## `rpc`
 
 This section contains the details of the chain RPC to which BDJuno will connect.
@@ -113,6 +138,7 @@ This section contains the details of the chain RPC to which BDJuno will connect.
 | :-------: | :---: | :--------- | :------ |
 | `address` | `string` | Address of the RPC endpoint | `http://localhost:26657` |
 | `client_name` | `string` | Client name used when subscribing to the Tendermint websocket | `bdjuno` |
+| `max_connections` | `int` | Max number of connections that can created towards the RPC node (any value less or equal to `0` means to use the default one instead) | `20` |
 
 ## `grpc`
 

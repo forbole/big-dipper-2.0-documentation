@@ -14,3 +14,12 @@ This setup has allowed us to increase the performances quite a bit, but it also 
 1. [Setup your database](database.md).
 2. [Setup and run BDJuno](setup.md).
 3. [Setup Hasura](hasura.md)
+
+:::info Custom chains support
+As the Cosmos ecosystem keeps growing, everyday it becomes harder to maintain something so specific like BDJuno for everyone.
+For this reason, we have decided that we will maintain official support for BDJuno only for a restricted number of projects.
+All of these projects can be viewed inside our repository by looking at the [different branches which names start with the `chains/` prefix](https://github.com/forbole/bdjuno/branches/all?query=chains%2F).
+
+If you are the developer of a new chain and would like to run a custom instance of BDJuno, however, you can still do so.
+All you have to do is follow the [__"Custom chains"__ guide](custom-chains.md).
+:::
