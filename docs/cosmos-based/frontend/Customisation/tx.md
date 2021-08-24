@@ -1,22 +1,23 @@
 ---
-title: Customisation
+title: Custom Tx Messages
 sidebar_position: 2
 ---
 
-You are free to change big dipper however you'd like to fit your needs. Below will be some basic changes available.
-
-## Theme(s)
-By default we offer `light`, `dark`, `deuteranopia` and `tritanopia` themes to make our explorer more accessible.
-
-We recommend you only edit the `light` and `dark` modes. They are available in `src/styles/themes`.
-
-`index` - holds the overall common usage for `light` and `dark`. They can easily be overwritten by copying and pasting their individual values in `dark.ts` or `light.ts`.
-
-
-## TX Messages
 By default, message types that don't exist on the base chain (cosmos in this case) will be displayed as `unknown` but you can easily customize your own by doing the following:
 
-Setup a class model in `src/models/msg/<module>`. By default we have separated all tx msgs by their corresponding chain module making it easy to locate and associate. All messages must contain the following: `category` (module), `type` (message type), `json` prop and a `fromJson` static method.
+## Create Tx Model
+
+Setup a class model in `src/models/msg/<module>`. We have separated all tx msgs by their corresponding chain module making it easy to associate.
+
+:::info
+All class messages **must** contain the following:
+1. `category` (module)
+2. `type` (message type)
+3. `json`
+4. `fromJson` static method.
+:::
+
+Example:
 
 ```
 class MsgUnjail {
@@ -51,6 +52,21 @@ export {
   MsgUnjail
 }
 ```
+## Set Legible i18n Content
+
+Create legible label in `public/locales/<lang>/message_labels.json`
+
+```
+"txUnjailLabel": "Unjail"
+```
+
+Create legible content in `public/locales/<lang>/message_contents.json`
+
+```
+"txUnjailContent": "<0>{{validator}}</0> unjailed"
+```
+
+## Create UI Component
 
 In `src/screens/transaction_details/components/msg` create a corresponding component for your newly created model.
 
@@ -91,6 +107,8 @@ export {
 }
 ```
 
+## Update Utils
+
 In `src/screens/transaction_details/utils.tsx` go to `customTypeToModel` and add your model in the following format
 
 ```
@@ -112,3 +130,32 @@ In `src/screens/transaction_details/utils.tsx` go to `customTypeToModel` and add
 ```
 
 Your newly added transaction message should be showing up correctly.
+
+## Update Message Filter
+![Docusaurus](/assets/ui-customisation-filter.png)
+
+Edit the utils file in `src/components/transaction_messages_filter/utils.tsx`.
+
+:::info
+`key` value must exist in `src/models/msg/types.ts`
+:::
+
+```
+export const getFilterLabels = () => {
+  return ([
+    {
+      key: 'none',
+      display: 'none',
+    },
+    {
+      key: 'bank',
+      display: 'bank',
+    },
+    {
+      key: 'others',
+      display: 'others',
+    },
+    ...
+  ]);
+};
+```
