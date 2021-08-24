@@ -44,10 +44,10 @@ git checkout -t origin/<branch-name>
 Now that you have checked out the Cosmos branch, you can create your own branch:
 
 ```shell
-git checkout chains/<project-name>
+git checkout -b chains/<project-name>
 
 # E.g
-# git checkout chains/my-project
+# git checkout -b chains/my-project
 ```
 
 This will create a new `chains/` branch that you can start working on.
@@ -90,7 +90,7 @@ This will be used to tell BDJuno which modules you support to make sure that it 
 messages. Failing in doing this will result in BDJuno returning an error each time a custom message is to be parsed from
 a transaction.
 
-To tell BDJuno which modules you support, you can need to change what the [`cmd/bdjuno/main.go#getBasicManages`](https://github.com/forbole/bdjuno/blob/cosmos/v0.43.x/cmd/bdjuno/main.go#L37) function returns by adding your project's `ModuleBasics`. As an example, for Desmos we will change it to be
+To tell BDJuno which modules you support, you need to change what the [`cmd/bdjuno/main.go#getBasicManages`](https://github.com/forbole/bdjuno/blob/cosmos/v0.43.x/cmd/bdjuno/main.go#L37) function returns by adding your project's `ModuleBasics`. As an example, for Desmos we will change it to be
 
 ```go
 func getBasicManagers() []module.BasicManager {
