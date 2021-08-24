@@ -132,7 +132,6 @@ In `src/screens/transaction_details/utils.tsx` go to `customTypeToModel` and add
 Your newly added transaction message should be showing up correctly.
 
 ## Update Message Filter
-![Docusaurus](/assets/ui-customisation-filter.png)
 
 Edit the utils file in `src/components/transaction_messages_filter/utils.tsx`.
 
