@@ -14,7 +14,7 @@ All themes are located inside `src/styles/themes`.
 
 <summary>Default Common</summary>
 
-```js
+```
 /** Common themes that don't change across light and dark theme */
 export const common = {
   breakpoints: {
@@ -205,7 +205,7 @@ export const common = {
 
 <summary>Default Light Theme</summary>
 
-```js
+```
 const backgroundDefault = '#F8F8F8';
 const surfaceOne = '#FFFFFF';
 const surfaceTwo = '#F8F8F8';
