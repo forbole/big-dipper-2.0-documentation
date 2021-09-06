@@ -14,7 +14,7 @@ All class messages **must** contain the following:
 1. `category` (module)
 2. `type` (message type)
 3. `json`
-4. `fromJson` static method.
+4. `fromJson` static method
 :::
 
 Example:

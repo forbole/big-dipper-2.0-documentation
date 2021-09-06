@@ -3,8 +3,11 @@ title: Setup
 sidebar_position: 1
 ---
 
+Docs based on: `base-v1.0.9`.
+
+The following will teach you how to run big dipper 2.0 ui for dev mode. If you have any other questions please feel free to open an [issue](https://github.com/forbole/big-dipper-2.0-cosmos/issues)
 ## Setup the environment
-Fork, clone and check out our [tag releases](https://github.com/forbole/big-dipper-2.0-cosmos/tags) for the most stable version. If you're feeling frisky feel free to use the `base` branch.
+Fork, clone and check out our [tag releases](https://github.com/forbole/big-dipper-2.0-cosmos/tags) for the most stable version or current documentation version. If you're feeling frisky feel free to use the `base` branch.
 
 ```
 git clone https://github.com/<user>/big-dipper-2.0-cosmos.git
@@ -14,25 +17,33 @@ npm ci
 
 ## Create .env
 
+Setup your `.env` file with the following key and adjust the values to your needs.
+
 ```
+NEXT_PUBLIC_GRAPHQL_URL=https://gql.morpheus.desmos.network/v1/graphql
+NEXT_PUBLIC_GRAPHQL_WS=wss://gql-ws.morpheus.desmos.network/v1/graphql
 NODE_ENV=development
 PORT=3000
-NEXT_PUBLIC_GRAPHQL_URL=
-NEXT_PUBLIC_GRAPHQL_WS=
-NEXT_PUBLIC_URL=
-NEXT_PUBLIC_WS_CHAIN_URL=
+NEXT_PUBLIC_URL=https://morpheus.desmos.network
+NEXT_PUBLIC_WS_CHAIN_URL=wss://rpc.morpheus.desmos.network/websocket
+NEXT_PUBLIC_CHAIN_STATUS=testnet
 ```
 
-- `NODE_ENV` - `development` | `production`
-- `PORT` - the port to run the app on
-- `NEXT_PUBLIC_GRAPHQL_URL` - refers to the api hosted by [BDJuno](https://github.com/forbole/bdjuno)
-- `NEXT_PUBLIC_GRAPHQL_WS` - refers to the websocket hosted by [BDJuno](https://github.com/forbole/bdjuno)
-- `NEXT_PUBLIC_URL` - the api where you will be hosting the frontend of this explorer (make sure there is no `/` at the end ex: `https://morpheus.desmos.network` not `https://morpheus.desmos.network/`)
-- `NEXT_PUBLIC_WS_CHAIN_URL` - refers to the rpc websocket
+| Key | Description |
+| :------- | :------- |
+| `NEXT_PUBLIC_GRAPHQL_URL` | The api exposed by hasura using [BDJuno](https://github.com/forbole/bdjuno) |
+| `NEXT_PUBLIC_GRAPHQL_WS` | The websocket exposed by hasura using [BDJuno](https://github.com/forbole/bdjuno) |
+| `NODE_ENV` | `development` / `production` |
+| `PORT` | The port to run the app on |
+| `NEXT_PUBLIC_URL` | The api where you will be hosting the frontend of this explorer (make sure there is no `/` at the end ex: `https://morpheus.desmos.network` not `https://morpheus.desmos.network/`) |
+| `NEXT_PUBLIC_WS_CHAIN_URL` | RPC websocket (used for the consensus module) |
+| `NEXT_PUBLIC_CHAIN_STATUS` | `testnet` / `mainnet` |
 
 
-## Configure chain_config.json
-In `src/configs/chain_config.json` update the json to fit your needs. For a better understanding of what each section and field refers to, please read the [chain config reference](chain-config.md).
+## Configure Chain Config
+Depending on you value in `NEXT_PUBLIC_CHAIN_STATUS`, update `src/configs/chain_config.(testnet | mainnet).json` to fit your chain needs.
+
+For a better understanding of what each section and field refers to, please read the [chain config reference](chain-config.md).
 
 :::info
 If you have more than one native token please insert it as the following `the base token needs [x] exponents to display the following token unit`
@@ -63,7 +74,7 @@ Turn `desmosProfile` on if you want to display desmos profile for users that hav
 Turn `forboleX` on if your chain uses Forbole X.
 :::
 
-## Configure general_config.json
+## Configure General Config
 In `src/configs/general_config.json` update the json to fit your needs.
 For a better understanding of what each section and field refers to, please read the [general config reference](general-config.md).
 
@@ -75,19 +86,27 @@ npm run dev
 ## Available Scripts
 
 ```
-npm run dev - starts the app in development mode using nodemon
+# Starts the app in development mode using nodemon
+npm run dev
 
-npm run build - builds the app for production
+# Builds the app for production
+npm run build
 
-npm run start - runs the build app in production mode
+# Runs the build app in production mode
+npm run start
 
-npm run type-check - typescript check
+# Typescript check
+npm run type-check
 
-npm run lint - lint check
+# Lint check
+npm run lint
 
-npm run test - jest
+# Jest
+npm run test
 
-npm run graphql:codegen - rebuilds gql types if anything in the `src/graphql` folder has changed
+# Rebuilds gql types if anything in the `src/graphql` folder has changed.
+# Make sure the schema url in src/codegen.yml is updated if you use this
+npm run graphql:codegen
 ```
 
 <!-- ## Docker

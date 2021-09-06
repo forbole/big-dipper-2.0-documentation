@@ -26,5 +26,5 @@ sidebar_position: 4
 
 | Attribute | Type | Required | Description | Example |
 | :-------: | :---: | :------ | :---------- | :------ |
-| `maintainer` | `string` | true | Displays who forked and is maintaining the ui | - |
+| `maintainer` | `object` | true | Displays who forked and is maintaining the ui | - |
 | `reportIssue` | `string` | true | Displays where to report an explorer error on the 500 page. If you forked our report please replace it with your repo link. | - |

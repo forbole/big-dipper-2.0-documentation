@@ -46,7 +46,7 @@ This config file will help the explorer display each chain uniquely.
 ## Type
 
 | Attribute | Type | Required | Description | Example |
-| :-------: | :---: | :------ | :---------- | :------ |
+| :-------: | :--- | :------ | :---------- | :------ |
 | `title` | `string` | true | Title of your block explorer. Used for SEO purposes | `"Desmos Block Explorer"` |
 | `network` | `string` | true | Chain ID | `"morpheus-apollo-2"` |
 | `icon` | `string` | true | The smaller chain icon that appears in the nav bar with a dropdown to the networks tab | - |
