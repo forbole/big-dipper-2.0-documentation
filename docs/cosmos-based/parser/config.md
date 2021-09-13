@@ -12,7 +12,7 @@ prefix = "cosmos"
 
 [pricefeed]
 tokens = [
-  { name = "Atom", units = [{ denom = "uatom", exponent = 0 }, { denom = "atom", exponent = 6 }] },
+  { name = "Atom", units = [{ denom = "uatom", exponent = 0 }, { denom = "atom", exponent = 6, price_id = "cosmos" }] },
   { name = "Photino", units = [{ denom = "uptn", exponent = 0 }, { denom = "ptn", exponent = 6 }] }
 ]
 
@@ -120,14 +120,16 @@ The only fields required in this section is the `tokens` field, which must be an
 - `name` represents the human-readable name of the token 
 - `units` contains a list of token units, each of them having the following attributes: 
   - `denom` 
-  - `exponent` 
+  - `exponent`
+  - (optional) `aliases`
+  - (optional) `price_id`
 
-:::tip Provide a valid denom  
-When fetching the various prices of the token, we will try and search for prices based on the `denom` of the units that you provide. 
-For this reason, you need to make sure that you provide at least a unit with a denom that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
+:::tip Provide a valid `price_id`  
+When fetching the various prices of the token, we will try and search for prices based on the `price_id` of the units that you provide. 
+For this reason, you need to make sure that you provide at least a unit with a `price_id` that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
 
 E.g. 
-If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN`, make sure you specify a token unit having denom `mtkn` and exponent `6` (or whatever amount of decimal places your token unit has). This will make sure the price is always fetched correctly.
+If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN` and id `MyToken`, make sure you specify a token unit having `denom = "mtkn"`, `price_id = "mytoken"`  and `exponent = 6` (or whatever amount of decimal places your token unit has inside your chain). This will make sure the price is always fetched correctly.
 :::
 
 ## `rpc`
