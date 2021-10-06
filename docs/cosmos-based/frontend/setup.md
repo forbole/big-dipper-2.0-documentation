@@ -66,13 +66,13 @@ If you have more than one native token please insert it as the following `the ba
   },
 ```
 
-:::tip
+<!-- :::tip
 Turn `desmosProfile` on if you want to display desmos profile for users that have a link.
 :::
 
 :::tip
 Turn `forboleX` on if your chain uses Forbole X.
-:::
+::: -->
 
 ## Configure General Config
 In `src/configs/general_config.json` update the json to fit your needs.
