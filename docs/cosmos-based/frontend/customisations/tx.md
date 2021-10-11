@@ -52,7 +52,7 @@ export {
   MsgUnjail
 }
 ```
-## Set Legible i18n Content
+## Set i18n Content
 
 Create legible label in `public/locales/<lang>/message_labels.json`
 
@@ -66,9 +66,13 @@ Create legible content in `public/locales/<lang>/message_contents.json`
 "txUnjailContent": "<0>{{validator}}</0> unjailed"
 ```
 
+:::info
+We are using **[next-translate](https://www.npmjs.com/package/next-translate)**
+:::
+
 ## Create UI Component
 
-In `src/screens/transaction_details/components/msg` create a corresponding component for your newly created model.
+In `src/components/msg` create a corresponding component for your newly created model.
 
 ```
 const Unjail = (props: {
@@ -97,10 +101,10 @@ const Unjail = (props: {
 };
 ```
 
-Import and export your component in `src/screens/transaction_details/components/index.ts`
+Import and export your component in `src/components/msg/index.ts`
 
 ```
-import Unjail from './msg/slashing/unjail';
+import Unjail from './slashing/unjail';
 
 export {
   Unjail
@@ -109,7 +113,7 @@ export {
 
 ## Update Utils
 
-In `src/screens/transaction_details/utils.tsx` go to `customTypeToModel` and add your model in the following format
+In `src/components/msg/utils.tsx` go to `customTypeToModel` and add your model in the following format
 
 ```
 <message type>: {
