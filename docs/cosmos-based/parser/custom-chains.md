@@ -1,5 +1,5 @@
 ---
-title: Custom chains 
+title: Custom chains
 sidebar_position: 5
 ---
 
@@ -29,7 +29,7 @@ new branch you checkout the one that is most similar to the Cosmos SDK your proj
 
 :::info Custom SDK implementations If you are developing a project with a custom Cosmos SDK implementation, don't worry.
 We will see how to handle that later. For now, just check out the branch that is made for the Cosmos version most
-similar to the one you are based on.  
+similar to the one you are based on.
 :::
 
 To checkout the branch you desire, just run:
@@ -108,17 +108,17 @@ If you set your modules first, the Cosmos ones will override them.
 :::
 
 ## (Optional) Add your custom addresses parser
-Inside BigDipper, when you visualize the details of an account you are able to see all the messages that it was involved in. 
-This is done by parsing each message to get the involved addresses. 
+Inside BigDipper, when you visualize the details of an account you are able to see all the messages that it was involved in.
+This is done by parsing each message to get the involved addresses.
 By default, inside BDJuno we do this only with the Cosmos messages, and then we rely on the [`Msg#GetSigners` method](https://github.com/cosmos/cosmos-sdk/blob/3f8596c1955e40ef30e4abcd06f2237d132db3a9/types/tx_msg.go#L21).
 
-Although this works great for most messages that involve a single user (the signer), your project might include some messages that involve more addresses. 
-For example, you might have a message that allows to send funds from one user to the other. Or a message that allows one user to perform a kind of action towards another one. 
+Although this works great for most messages that involve a single user (the signer), your project might include some messages that involve more addresses.
+For example, you might have a message that allows to send funds from one user to the other. Or a message that allows one user to perform a kind of action towards another one.
 
-If this is the case, it is important that you build a custom addresses parser inside BDJuno to make sure that each message is associated with the proper list of addresses, and that the associated accounts are refreshed correctly once the message is parsed (especially if it edits both account balances). 
+If this is the case, it is important that you build a custom addresses parser inside BDJuno to make sure that each message is associated with the proper list of addresses, and that the associated accounts are refreshed correctly once the message is parsed (especially if it edits both account balances).
 
-To do this, what you can do is create a new file inside the `cmd/bdjuno` folder naming it after your project. 
-Inside that file, you need to create a function with the following signature: 
+To do this, what you can do is create a new file inside the `cmd/bdjuno` folder naming it after your project.
+Inside that file, you need to create a function with the following signature:
 
 ```go
 // CustomAddressesParser represents a MessageAddressesParser for the my custom module
@@ -127,14 +127,14 @@ func CustomAddressesParser(cdc codec.Marshaler, cosmosMsg sdk.Msg) ([]string, er
 
 This method should return either a list of all the parsed addresses, or `messages.MessageNotSupported(cosmosMsg)` is the message is not supported.
 
-If you want to take a look at a reference implementation you can refer to the [Desmos one](https://github.com/forbole/bdjuno/blob/chains/desmos/cmd/bdjuno/desmos.go#L17).
+If you want to take a look at a reference implementation you can refer to the [Desmos one](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 
-:::tip Combine multiple parsers  
-If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining that parsers together using the [`messages.JoinMessageParsers`](https://github.com/desmos-labs/juno/blob/cosmos-v0.40.x/modules/messages/account_parser.go#L30) method. 
-You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/chains/desmos/cmd/bdjuno/desmos.go#L12).
+:::tip Combine multiple parsers
+If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining that parsers together using the [`messages.JoinMessageParsers`](https://github.com/forbole/juno/blob/v2/cosmos-stargate/modules/messages/account_parser.go) method.
+You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 :::
 
-Finally, once you have your custom addresses parser setup, you need to add it to the [`cmd/bdjuno/main.go#getAddressesParser`](https://github.com/forbole/bdjuno/blob/cosmos/v0.43.x/cmd/bdjuno/main.go#L46) method. Here is the example for Desmos: 
+Finally, once you have your custom addresses parser setup, you need to add it to the [`cmd/bdjuno/main.go#getAddressesParser`](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/main.go) method. Here is the example for Desmos:
 
 ```go
 func getAddressesParser() messages.MessageAddressesParser {
@@ -145,6 +145,6 @@ func getAddressesParser() messages.MessageAddressesParser {
 }
 ```
 
-:::tip Your parser should be first 
+:::tip Your parser should be first
 Make sure you set your parser to be the first one used. Otherwise, the `CosmosMessageAddressesParser` will default to using the `Msg#GetSigners` method and your parser will never be called, even though BDJuno will not return any error.
 :::
