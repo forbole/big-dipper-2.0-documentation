@@ -34,8 +34,7 @@ This config file will help the explorer display each chain uniquely.
     }
   },
   "extra": {
-    "desmosProfile": true,
-    "forboleX": false
+    "profile": true
   }
 }
 ```
@@ -55,5 +54,4 @@ This config file will help the explorer display each chain uniquely.
 | `genesis` | `{time: string, height: number}` | true | Checks if countdown component will be displayed | - |
 | `primaryTokenUnit` | `string` | true | This would most likely be the staking unit. Used for converting token in to the correct denom display. | `udaric` |
 | `tokenUnits` | `{[key: string]: {display: string, exponent: number}}` | true | Used to display chain data and convert base denoms. When adding a new token unit please follow the logic `the base token needs [x] exponents to display the following token unit` |  `"udaric": {  "display": "daric", "exponent": 6 }` |
-| `extra.desmosProfile` | `boolean` | true | If `true` we will be displaying desmos profiles with a fallback to use keybase and on chain descriptions | - |
-| `extra.forboleX` | `boolean` | true | If `true` the explorer will display staking buttons with links to Forbole X | - |
+| `extra.profile` | `boolean` | true | If `true` we will be displaying desmos profiles with a fallback to use keybase and on-chain descriptions | - |

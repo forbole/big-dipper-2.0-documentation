@@ -3,11 +3,11 @@ title: Setup
 sidebar_position: 1
 ---
 
-Docs based on: `base-v1.0.9`.
+Docs curently based on: `base-v1.5.0`
 
 The following will teach you how to run big dipper 2.0 ui for dev mode. If you have any other questions please feel free to open an [issue](https://github.com/forbole/big-dipper-2.0-cosmos/issues)
 ## Setup the environment
-Fork, clone and check out our [tag releases](https://github.com/forbole/big-dipper-2.0-cosmos/tags) for the most stable version or current documentation version. If you're feeling frisky feel free to use the `base` branch.
+Fork, clone and check out our [latest release](https://github.com/forbole/big-dipper-2.0-cosmos/releases) for the most stable version or feel free to use the current documentation version. If you're feeling frisky feel free to use the `base` branch.
 
 ```
 git clone https://github.com/<user>/big-dipper-2.0-cosmos.git
@@ -39,6 +39,21 @@ NEXT_PUBLIC_CHAIN_STATUS=testnet
 | `NEXT_PUBLIC_WS_CHAIN_URL` | RPC websocket (used for the consensus module) |
 | `NEXT_PUBLIC_CHAIN_STATUS` | `testnet` / `mainnet` |
 
+## Configure General Config
+In `src/configs/general_config.json` update the json to give proper maintainer credits as well as a way for users to submit bugs/ issues.
+For a better understanding of what each section and field refers to, please read the [general config reference](general-config.md).
+
+```json
+{
+  "maintainer": {
+    "name": "Forbole",
+    "url": "https://forbole.com"
+  },
+  "github": {
+    "reportIssue": "https://github.com/forbole/big-dipper-2.0-cosmos/issues"
+  }
+}
+```
 
 ## Configure Chain Config
 Depending on you value in `NEXT_PUBLIC_CHAIN_STATUS`, update `src/configs/chain_config.(testnet | mainnet).json` to fit your chain needs.
@@ -46,7 +61,7 @@ Depending on you value in `NEXT_PUBLIC_CHAIN_STATUS`, update `src/configs/chain_
 For a better understanding of what each section and field refers to, please read the [chain config reference](chain-config.md).
 
 :::info
-If you have more than one native token please insert it as the following `the base token needs [x] exponents to display the following token unit`
+If you have trouble understanding **tokenUnits** please insert it as the following `the base token needs [x] exponents to display the following token unit`
 :::
 
 ```
@@ -66,17 +81,6 @@ If you have more than one native token please insert it as the following `the ba
   },
 ```
 
-<!-- :::tip
-Turn `desmosProfile` on if you want to display desmos profile for users that have a link.
-:::
-
-:::tip
-Turn `forboleX` on if your chain uses Forbole X.
-::: -->
-
-## Configure General Config
-In `src/configs/general_config.json` update the json to fit your needs.
-For a better understanding of what each section and field refers to, please read the [general config reference](general-config.md).
 
 ## Start Big Dipper
 ```
