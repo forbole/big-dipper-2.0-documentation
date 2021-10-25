@@ -6,56 +6,53 @@ sidebar_position: 5
 The default `config.toml` file should look like the following:
 
 ```toml
+
 [cosmos]
-modules = []
-prefix = "cosmos"
-
-[pricefeed]
-tokens = [
-  { name = "Atom", units = [{ denom = "uatom", exponent = 0 }, { denom = "atom", exponent = 6, price_id = "cosmos" }] },
-  { name = "Photino", units = [{ denom = "uptn", exponent = 0 }, { denom = "ptn", exponent = 6 }] }
-]
-
-[rpc]
-address = "http://localhost:26657"
-client_name = "juno"
-max_connections = 20
-
-[grpc]
-address = "localhost:9090"
-insecure = true
-
-[parsing]
-fast_sync = true
-listen_new_blocks = true
-parse_genesis = true
-parse_old_blocks = true
-start_height = 1
-workers = 1
+  modules = []
+  prefix = "cosmos"
 
 [database]
-host = "localhost"
-max_idle_connections = 0
-max_open_connections = 0
-name = "database-name"
-password = "password"
-port = 5432
-schema = "public"
-ssl_mode = ""
-user = "user"
+  host = "localhost"
+  max_idle_connections = 1
+  max_open_connections = 1
+  name = "database-name"
+  password = "password"
+  port = 5432
+  schema = "public"
+  ssl_mode = ""
+  user = "user"
 
-[pruning]
-interval = 10
-keep_every = 500
-keep_recent = 100
+[grpc]
+  address = "localhost:9090"
+  insecure = true
 
 [logging]
-format = "text"
-level = "debug"
+  format = "text"
+  level = "debug"
+
+[parsing]
+  fast_sync = false
+  genesis_file_path = ""
+  listen_new_blocks = true
+  parse_genesis = true
+  parse_old_blocks = true
+  start_height = 1
+  workers = 1
+
+[pruning]
+  interval = 10
+  keep_every = 500
+  keep_recent = 100
+
+[rpc]
+  address = "http://localhost:26657"
+  client_name = "juno"
+  max_connections = 20
 
 [telemetry]
-enabled = false
-port = 5000
+  enabled = false
+  port = 500
+
 ```
 
 Let's see what each section refers to:
@@ -155,7 +152,6 @@ This section contains the details of the gRPC endpoint that BDJuno will use to q
 
 | Attribute | Type | Description | Example |
 | :-------: | :---: | :--------- | :------ |
-| `fast_sync` | `boolean` | Whether BDJuno should use the fast sync abilities of different modules when enabled | `false` |
 | `listen_new_blocks` | `boolean` | Whether BDJuno should parse new blocks as soon as they get created | `true` | 
 | `parse_genesis` | `boolean` | Whether BDJuno needs to parse the genesis state or not | `true` |
 | `parse_old_blocks` | `boolean` | Whether BDJuno should parse old chain blocks or not | `true` | 
