@@ -97,7 +97,7 @@ Currently, we support the followings Cosmos modules:
 - `slashing` to parse the `x/slashing` data
 - `staking` to parse the `x/staking` data
 - `history` to store historical data. This is currently limited to
-  - historical price data, stored everytime the price changes
+  - historical price data, stored every time the price changes
   - historical account balance, which includes:
      - the available balance
      - the delegated amount
