@@ -30,7 +30,7 @@ When you have installed both Hasura and Hasura CLI, you are now ready to import 
 $ cd /path/to/BDJuno/hasura
 
 # Import the metadata into the remote server
-$ hasura metadata apply --endpoint <your-endpoint> --secret <your-admin-secret>
+$ hasura metadata apply --endpoint <your-endpoint> --admin-secret <hasura_password>
 ```
 
 :::info Verify endpoint  
