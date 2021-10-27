@@ -164,7 +164,7 @@ This section contains the details of the gRPC endpoint that BDJuno will use to q
 
 ## `database`
 
-This section contains all the different configuration related to the PostgreSQL database where BDJuno will write the
+This section contains all the different configurations related to the PostgreSQL database where BDJuno will write the
 data.
 
 | Attribute | Type | Description | Example |
