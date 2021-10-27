@@ -30,11 +30,11 @@ When you have installed both Hasura and Hasura CLI, you are now ready to import 
 $ cd /path/to/BDJuno/hasura
 
 # Import the metadata into the remote server
-$ hasura metadata apply --endpoint <your-endpoint> --secret <your-admin-secret>
+$ hasura metadata apply --endpoint <your-endpoint> --admin-secret <hasura_password>
 ```
 
 :::info Verify endpoint  
-Make sure that `<your-endpoint>` represents your full GraphQL endpoint (eg. `http://localhost:8080`) and `<your-secret>` matches the console secret you specified while starting Hasura. If you did not use a secret, then you can remove the flag.
+Make sure that `<your-endpoint>` represents your full GraphQL endpoint (eg. `http://localhost:8080`) and `<hasura_password>` matches the console secret you specified while starting Hasura. If you did not use a secret, then you can remove the flag.
 
 Once the metadata is successfully applied, you will be able to start using it properly.
 :::
