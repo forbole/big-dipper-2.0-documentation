@@ -171,7 +171,6 @@ This section contains the details of the gRPC endpoint that BDJuno will use to q
 
 | Attribute | Type | Description | Example |
 | :-------: | :---: | :--------- | :------ |
-| `fast_sync` | `boolean` | Whether BDJuno should use the fast sync abilities of different modules when enabled | `false` |
 | `listen_new_blocks` | `boolean` | Whether BDJuno should parse new blocks as soon as they get created | `true` | 
 | `parse_genesis` | `boolean` | Whether BDJuno needs to parse the genesis state or not | `true` |
 | `parse_old_blocks` | `boolean` | Whether BDJuno should parse old chain blocks or not | `true` | 
