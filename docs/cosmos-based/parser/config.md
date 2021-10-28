@@ -3,15 +3,6 @@ title: Config reference
 sidebar_position: 5
 ---
 
-:::tip Migrate from `config.toml` file
-If you previously ran bdjuno with a `config.toml` file, you can simply create and migrate to the new `config.yaml` file by running:
-```shell
-$ bdjuno migrate
-```
-A `config.yaml` file will be generated based on the exsisting `config.toml` file.
-
-:::
-
 Here's an example of `config.yaml` file:
 
 ```yaml
@@ -75,6 +66,13 @@ pricefeed:
 distribution:
     rewards_frequency: 100
 ```
+:::tip Migrate from TOML file
+If you previously ran bdjuno with a `config.toml` file, you can simply migrate to the new `config.yaml` file by running:
+```shell
+$ bdjuno migrate
+```
+A `config.yaml` file will be generated based on the exsisting `config.toml` file.
+:::
 
 Let's see what each section refers to:
 
@@ -94,8 +92,8 @@ This section contains the details of the chain configuration regarding the Cosmo
 
 | Attribute | Description | Example |
 | :-------: | :--------- | :------ |
-| `modules` | List of modules that should be enabled | - modules<br />  - messages<br />  - auth |
 | `bech32_prefix` | Bech 32 prefix of the addresses | cosmos | 
+| `modules` | List of modules that should be enabled | - modules<br />  - messages<br />  - auth |
 
 ### Supported modules
 
@@ -134,7 +132,7 @@ When listing the different modules to be used, please note that there is some or
 ## `pricefeed`
 This section contains the data used by the `pricefeed` to fetch the prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
 
-The only fields required in this section is the `tokens` field, which must be an array of objects, each one containing two fields:
+The only fields required in this section is the `tokens` field which contains two fields:
 - `name` represents the human-readable name of the token 
 - `units` contains a list of token units, each of them having the following attributes: 
   - `denom` 
