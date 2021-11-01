@@ -3,11 +3,11 @@ title: Setup
 sidebar_position: 1
 ---
 
-Docs curently based on: `base-v1.5.0`
+Docs curently based on: `base-v1.6.0`
 
 The following will teach you how to run big dipper 2.0 ui for dev mode. If you have any other questions please feel free to open an [issue](https://github.com/forbole/big-dipper-2.0-cosmos/issues)
 ## Setup the environment
-Fork, clone and check out our [latest release](https://github.com/forbole/big-dipper-2.0-cosmos/releases) for the most stable version or feel free to use the current documentation version. If you're feeling frisky feel free to use the `base` branch.
+Fork, clone and check out our [latest base release](https://github.com/forbole/big-dipper-2.0-cosmos/releases) for the most stable version or feel free to use the current documentation version. If you're feeling frisky feel free to use the `base` branch.
 
 ```
 git clone https://github.com/<user>/big-dipper-2.0-cosmos.git
