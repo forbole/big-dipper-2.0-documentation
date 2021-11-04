@@ -3,57 +3,76 @@ title: Config reference
 sidebar_position: 5
 ---
 
-The default `config.toml` file should look like the following:
+Here's an example of `config.yaml` file:
 
-```toml
-
-[cosmos]
-  modules = []
-  prefix = "cosmos"
-
-[database]
-  host = "localhost"
-  max_idle_connections = 1
-  max_open_connections = 1
-  name = "database-name"
-  password = "password"
-  port = 5432
-  schema = "public"
-  ssl_mode = ""
-  user = "user"
-
-[grpc]
-  address = "localhost:9090"
-  insecure = true
-
-[logging]
-  format = "text"
-  level = "debug"
-
-[parsing]
-  fast_sync = false
-  genesis_file_path = ""
-  listen_new_blocks = true
-  parse_genesis = true
-  parse_old_blocks = true
-  start_height = 1
-  workers = 1
-
-[pruning]
-  interval = 10
-  keep_every = 500
-  keep_recent = 100
-
-[rpc]
-  address = "http://localhost:26657"
-  client_name = "juno"
-  max_connections = 20
-
-[telemetry]
-  enabled = false
-  port = 500
-
+```yaml
+chain:
+    bech32_prefix: cosmos
+    modules: 
+        - modules
+        - messages
+        - auth
+node:
+    type: remote
+    config:
+        rpc:
+            client_name: juno
+            address: http://localhost:26657
+            max_connections: 20
+        grpc:
+            address: http://localhost:9090
+            insecure: true
+parsing:
+    workers: 1
+    listen_new_blocks: true
+    parse_old_blocks: true
+    parse_genesis: true
+    start_height: 1
+    fast_sync: true
+    genesis_file_path: [Path to the genesis file]
+database:
+    name: database-name
+    host: localhost
+    port: 5432
+    user: user
+    password: password
+    schema: public
+    max_open_connections: 10
+    max_idle_connections: 10
+logging:
+    level: debug
+    format: text
+telemetry:
+    port: 5000
+pruning:
+    keep_recent: 100
+    keep_every: 500
+    interval: 10
+pricefeed:
+    tokens:
+        - name: Atom
+          units:
+            - denom: uatom
+              exponent: 0
+            - denom: atom
+              exponent: 6
+              price_id: cosmos
+        - name: Photino
+          units:
+            - denom: uptn
+              exponent: 0
+            - denom: ptn
+              exponent: 6
+distribution:
+    rewards_frequency: 100
 ```
+:::tip Migrate from TOML file
+If you previously ran bdjuno with a `config.toml` file, you can simply migrate to the new `config.yaml` file by running:
+```shell
+$ bdjuno migrate
+```
+A `config.yaml` file will be generated based on the exsisting `config.toml` file.
+:::
 
 Let's see what each section refers to:
 
@@ -71,28 +90,28 @@ Let's see what each section refers to:
 
 This section contains the details of the chain configuration regarding the Cosmos SDK.
 
-| Attribute | Type | Description | Example |
-| :-------: | :---: | :--------- | :------ |
-| `modules` | `array` | List of modules that should be enabled | `[ "auth", "bank", "distribution" ]` |
-| `prefix` | `string` | Bech 32 prefix of the addresses | `cosmos` | 
+| Attribute | Description | Example |
+| :-------: | :--------- | :------ |
+| `bech32_prefix` | Bech 32 prefix of the addresses | cosmos | 
+| `modules` | List of modules that should be enabled | - modules<br />  - messages<br />  - auth |
 
 ### Supported modules
 
 Currently, we support the followings Cosmos modules:
 
+- `modules` to get the list of enabled modules inside BDJuno
+- `messages` to parse the various messages inside a separate table
 - `auth` to parse the `x/auth` data
 - `bank` to parse the `x/bank` data
 - `consensus` to parse the consensus data. This includes:
    - the genesis details
    - average block times (since genesis, in a day, in an hour, in a minute)
-- `distribution` to parse the `x/distribution` data
 - `gov` to parse the `x/gox` data
-- `messages` to parse the various messages inside a separate table
 - `mint` to parse the `x/mint` data
-- `modules` to get the list of enabled modules inside BDJuno
 - `pricefeed` to get the token prices
 - `slashing` to parse the `x/slashing` data
 - `staking` to parse the `x/staking` data
+- `distribution` to parse the `x/distribution` data
 - `history` to store historical data. This is currently limited to
   - historical price data, stored every time the price changes
   - historical account balance, which includes:
@@ -113,7 +132,7 @@ When listing the different modules to be used, please note that there is some or
 ## `pricefeed`
 This section contains the data used by the `pricefeed` to fetch the prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
 
-The only fields required in this section is the `tokens` field, which must be an array of objects, each one containing two fields:
+The only fields required in this section is the `tokens` field which contains two fields:
 - `name` represents the human-readable name of the token 
 - `units` contains a list of token units, each of them having the following attributes: 
   - `denom` 

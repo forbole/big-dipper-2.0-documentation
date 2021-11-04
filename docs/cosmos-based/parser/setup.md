@@ -66,7 +66,7 @@ Use "bdjuno [command] --help" for more information about a command.
 ```
 
 ## Initializing the configuration
-In order to correctly parse and store the data based on your requirements, BDJuno allows you to customize its behavior via a TOML file called `config.toml`. In order to create the first instance of the `config.toml` file you can run
+In order to correctly parse and store the data based on your requirements, BDJuno allows you to customize its behavior via a YAML file called `config.yaml`. In order to create the first instance of the `config.yaml` file you can run
 
 ```shell
 $ bdjuno init
@@ -82,7 +82,7 @@ $ bdjuno init --home /path/to/my/folder
 Once the file is created, you are required to edit it and change the different values. To do this you can run
 
 ```shell
-$ nano ~/.bdjuno/config.toml
+$ nano ~/.bdjuno/config.yaml
 ```
 
 For a better understanding of what each section and field refers to, please read the [config reference](config.md).
