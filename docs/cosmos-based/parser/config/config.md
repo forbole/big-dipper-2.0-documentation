@@ -1,5 +1,5 @@
 ---
-title: BDjuno v2
+title: BDJuno v2
 sidebar_position: 1
 ---
 
