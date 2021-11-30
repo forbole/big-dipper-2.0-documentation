@@ -85,7 +85,7 @@ Once the file is created, you are required to edit it and change the different v
 $ nano ~/.bdjuno/config.yaml
 ```
 
-For a better understanding of what each section and field refers to, please read the [config reference](config.md).
+For a better understanding of what each section and field refers to, please read the [config reference](config/config.md).
 
 ## Running BDJuno
 Once the configuration file has been setup, you can run BDJuno using the following command:
