@@ -131,7 +131,7 @@ If you want to take a look at a reference implementation you can refer to the [D
 
 :::tip Combine multiple parsers
 If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining that parsers together using the [`messages.JoinMessageParsers`](https://github.com/forbole/juno/blob/v2/cosmos-stargate/modules/messages/account_parser.go) method.
-You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/desmos.go/).
+You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 :::
 
 Finally, once you have your custom addresses parser setup, you need to add it to the [`cmd/bdjuno/main.go#getAddressesParser`](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/main.go) method. Here is the example for Desmos:
