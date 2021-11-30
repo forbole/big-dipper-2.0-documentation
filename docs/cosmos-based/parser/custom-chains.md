@@ -1,6 +1,6 @@
 ---
 title: Custom chains
-sidebar_position: 5
+sidebar_position: 6
 ---
 
 Creating a custom version of BDJuno is pretty straightforward. All you have to do is:
@@ -22,8 +22,8 @@ update the base repo to make sure you have a constantly updated BDJuno codebase 
 The next thing you want to do is create a new branch for your project. The best way to do this is by checking out one of
 the `cosmos/` branches and then crete a new branch from there.
 
-:::info Select the correct Cosmos branch Currently BDJuno supports multiple Cosmos versions (you can see them
-all [here](https://github.com/forbole/bdjuno/branches/all?query=cosmos%2F)). It is important that when you create your
+:::info Select the correct Cosmos branch Currently BDJuno supports multiple Cosmos versions (you can see them all [here](https://github.com/forbole/bdjuno/branches/all?query=cosmos%2F ))
+It is important that when you create your
 new branch you checkout the one that is most similar to the Cosmos SDK your project is based on.
 :::
 
@@ -35,10 +35,10 @@ similar to the one you are based on.
 To checkout the branch you desire, just run:
 
 ```shell
-git checkout -t origin/<branch-name>
+git checkout -t origin/v2/<branch-name>
 
 # E.g.
-# git checkout origin/cosmos/v0.43.x
+# git checkout origin/v2/cosmos/stargate
 ```
 
 Now that you have checked out the Cosmos branch, you can create your own branch:
@@ -56,10 +56,10 @@ This will create a new `chains/` branch that you can start working on.
 Now it's time to add the dependencies that your project needs. For these steps we will take as
 example [Desmos](https://github.com/desmos-labs/desmos/).
 
-The first thing we want to do is adding Desmos ad a dependency:
+The first thing we want to do is adding Desmos as a dependency:
 
 ```shell
-go get -u github.com/desmos-labs/desmos@v1.0.0
+go get -u github.com/desmos-labs/desmos@v2.3.0
 ```
 
 This will edit your `go.mod` and `go.sum` file including the Desmos dependency.
@@ -73,11 +73,11 @@ In our case, Desmos uses some custom dependencies:
 ```
 replace github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 
-replace github.com/cosmos/cosmos-sdk => github.com/desmos-labs/cosmos-sdk v0.42.5-0.20210814123412-0e951b4cec31
+replace github.com/cosmos/cosmos-sdk => github.com/desmos-labs/cosmos-sdk v0.43.0-alpha1.0.20211102084520-683147efd235
 
 replace google.golang.org/grpc => google.golang.org/grpc v1.33.2
 
-replace github.com/cosmos/ledger-cosmos-go => github.com/desmos-labs/ledger-desmos-go v0.11.2-0.20210814121638-5d87e392e8a9
+replace github.com/tendermint/tendermint => github.com/forbole/tendermint v0.34.13-0.20210820072129-a2a4af55563d
 ```
 
 What we need to do, is edit BDJuno's `go.mod` file by adding the same `replace` directives. This will make sure that

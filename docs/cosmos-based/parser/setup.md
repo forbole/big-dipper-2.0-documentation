@@ -23,10 +23,10 @@ git branch -r
 Then, you can checkout the branch you prefer using the `checkout` command:
 
 ```shell
-git checkout -t origin/chains/<chain>
+git checkout -t origin/v2/chains/<chain>
 
 # E.g.
-# git checkout -t origin/chains/osmosis
+# git checkout -t origin/v2/chains/osmosis
 ```
 
 If you do not see a branch for the chain you would like to parse, please head to the [BDJuno repository](https://github.com/forbole/bdjuno/) and open an issue asking for an integration. 
@@ -85,7 +85,7 @@ Once the file is created, you are required to edit it and change the different v
 $ nano ~/.bdjuno/config.yaml
 ```
 
-For a better understanding of what each section and field refers to, please read the [config reference](config.md).
+For a better understanding of what each section and field refers to, please read the [config reference](config/config.md).
 
 ## Running BDJuno
 Once the configuration file has been setup, you can run BDJuno using the following command:
