@@ -1,6 +1,6 @@
 ---
-title: Config reference
-sidebar_position: 5
+title: BDjuno v2
+sidebar_position: 1
 ---
 
 Here's an example of `config.yaml` file:
