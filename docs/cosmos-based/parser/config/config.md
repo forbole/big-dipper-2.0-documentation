@@ -76,7 +76,8 @@ A `config.yaml` file will be generated based on the exsisting `config.toml` file
 
 Let's see what each section refers to:
 
-- [`cosmos`](#cosmos)
+- [`chain`](#chain)
+- [`node`](#node)
 - [`pricefeed`](#pricefeed)
 - [`rpc`](#rpc)
 - [`grpc`](#grpc)
@@ -86,7 +87,7 @@ Let's see what each section refers to:
 - [`logging`](#logging)
 - [`telemetry`](#telemetry)
 
-## `cosmos`
+## `chain`
 
 This section contains the details of the chain configuration regarding the Cosmos SDK.
 
@@ -128,6 +129,35 @@ When listing the different modules to be used, please note that there is some or
 - `distribution` must be listed **after** the `staking` module
 
 :::
+
+## `node`
+This section defines from which source bdjuno will parse the data.
+
+| Attribute | Description | Example | 
+| :-------: | :--------- | :--------- | 
+| `type` | Read from a running node, or from the chain's db of the same machine | `remote` or `local` |
+| `config` | Config according to the node type | [`example`](#node-type-example) |
+
+### Node type example
+```yaml
+# node type : remote
+node:
+    type: remote
+    config:
+        rpc:
+            client_name: juno
+            address: http://localhost:26657
+            max_connections: 20
+        grpc:
+            address: http://localhost:9090
+            insecure: true
+
+# node type : local
+node:
+    type: local
+    config:
+        home: path/to/.desmos
+```
 
 ## `pricefeed`
 This section contains the data used by the `pricefeed` to fetch the prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
