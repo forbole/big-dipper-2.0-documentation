@@ -5,7 +5,7 @@ sidebar_position: 1
 
 By default we offer `light`, `dark`, `deuteranopia` and `tritanopia` themes to make our explorer more accessible.
 
-All themes are located inside `src/styles/themes`.
+All themes are located inside `src/styles/themes`. If the default theme doesn't match the look you're going for feel free to check out these other [themes](https://github.com/forbole/big-dipper-2.0-cosmos/tree/base/.misc/themes) we are currently using.
 
 ## Updating `light` / `dark` theme
 `src/styles/theme/index.ts` will hold all themes in which `light` and `dark` have in common. If you would like to override anything in common just add the key value pair inside `light.ts / dark.ts`. All theme files will have higher priority than the colors inside `index.ts`.
@@ -341,50 +341,3 @@ dark.ts
   }
 }
 ```
-
-## Removing a default theme
-If you decided you don't need dark mode or whatever else mode you can easily go to `src/contexts/settings`.
-
-There is a `themeList` in side `hooks.tsx`. Customise it to your needs.
-
-```
-const themeList = [
-    'light',
-    'dark',
-    'deuteranopia',
-    'tritanopia',
-  ];
-```
-
-:::warning
-If you remove `light` or `dark` mode you will need to update how the app handles users with a dark theme preference. By default the app will check the user's preference and decide which mode to use.
-
-```
-if (themeSelection === 'device') {
-  if (
-    isClient
-    && window?.matchMedia('(prefers-color-scheme: dark)')?.matches
-  ) {
-    setTheme('dark');
-  }
-}
-```
-:::
-
-:::warning
-If you remove `light` mode you will need to update the initial theme state in `index.ts`.
-
-```
-const initialThemeState: ThemeState = {
-  theme: 'light',
-  themeSelection: 'device',
-  muiTheme: createMuiTheme(lightTemplate),
-  themeList: [],
-};
-```
-:::
-
-## Adding Custom theme
-1. Create a new theme in `src/styles/theme`, export it in `src/styles/theme/index.ts`.
-2. Edit `src/contexts/settings/hooks.tsx`
-3. Add your theme name inside `public/locales/<lang>/common`. Make sure the key is the same in `src/contexts/settings/hooks.tsx`.
