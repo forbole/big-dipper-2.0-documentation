@@ -5,7 +5,7 @@ sidebar_position: 1
 
 By default we offer `light`, `dark`, `deuteranopia` and `tritanopia` themes to make our explorer more accessible.
 
-All themes are located inside `src/styles/themes`.
+All themes are located inside `src/styles/themes`. If the default theme doesn't match the look you're going for feel free to check out these other [themes](https://github.com/forbole/big-dipper-2.0-cosmos/tree/base/.misc/themes) we are currently using.
 
 ## Updating `light` / `dark` theme
 `src/styles/theme/index.ts` will hold all themes in which `light` and `dark` have in common. If you would like to override anything in common just add the key value pair inside `light.ts / dark.ts`. All theme files will have higher priority than the colors inside `index.ts`.

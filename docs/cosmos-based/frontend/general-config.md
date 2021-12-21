@@ -15,7 +15,8 @@ sidebar_position: 4
   },
   "github": {
     "reportIssue": "https://github.com/forbole/big-dipper-2.0-cosmos/issues"
-  }
+  },
+  "version": "base-v1.8.0"
 }
 ```
 
