@@ -27,6 +27,7 @@ This config file will help the explorer display each chain uniquely.
     "height": 1
   },
   "primaryTokenUnit": "udaric",
+  "votingPowerTokenUnit": "udaric",
   "tokenUnits": {
     "udaric": {
       "display": "daric",
@@ -53,5 +54,6 @@ This config file will help the explorer display each chain uniquely.
 | `prefix` | `{consensus: string,  validator: string, account: string}` | true | Consist of prefixes by address role `consensus`, `validator`, `account` | `"prefix": { "consensus": "desmosvalcons", "validator": "desmosvaloper", "account": "desmos" }` |
 | `genesis` | `{time: string, height: number}` | true | Checks if countdown component will be displayed | - |
 | `primaryTokenUnit` | `string` | true | This would most likely be the staking unit. Used for converting token in to the correct denom display. | `udaric` |
+| `primaryTokenUnit` | `string` | true | Used to display voting power correctly. If the VP is not the same as `primaryTokenUnit` please create a new TokenUnit and place the name here | `udaric` |
 | `tokenUnits` | `{[key: string]: {display: string, exponent: number}}` | true | Used to display chain data and convert base denoms. When adding a new token unit please follow the logic `the base token needs [x] exponents to display the following token unit` |  `"udaric": {  "display": "daric", "exponent": 6 }` |
 | `extra.profile` | `boolean` | true | If `true` we will be displaying desmos profiles with a fallback to use keybase and on-chain descriptions | - |
