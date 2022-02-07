@@ -42,3 +42,47 @@ Once the metadata is successfully applied, you will be able to start using it pr
 :::caution Metadata error    
 If Hasura is complaining about metadata not being valid after importing them, please head into the _Metadata status_ page, delete all the metadata and try re-importing them. This should fix all the issues.
 :::
+
+## Start Hasura Actions
+Upon the upgrade of BDjuno v1.0.0, certain address-specific data are no longer periodically parsed from the node and stored in the database. 
+Instead, those data are obtained directly from the node when necessary thanks to the [Hasura Actions](https://hasura.io/docs/latest/graphql/core/actions/index.html) service.
+
+Here's the list of data which are acquired through Hasura Actions:
+- Of a certain address/delegator:
+    - Account balance
+    - Delegation rewards
+    - Delegator withdraw address
+    - Delegations
+    - Total delegations amount
+    - Unbonding delegations
+    - Total unbonding delegations amount
+    - Redelegations
+- Of a certain validator:
+    - Commission amount
+    - Delegations to this validator
+    - Redelegations from this validator
+    - Unbonding delegations
+
+To activate Hasura actoins, simply run: 
+```
+$ bdjuno hasura-actions
+```
+
+It is also recommended to run Hasura Actions as a system service:
+```shell
+$ sudo tee /etc/systemd/system/hasura-actions.service > /dev/null <<EOF
+[Unit]
+Description=BDJuno Hasura Actions
+After=network-online.target
+
+[Service]
+User=$USER
+ExecStart=$GOPATH/bin/bdjuno hasura-actions
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+EOF
+```
