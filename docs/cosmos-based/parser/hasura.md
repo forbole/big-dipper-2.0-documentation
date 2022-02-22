@@ -86,3 +86,9 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF
 ```
+
+Enable and start the service: 
+```shell
+$ sudo systemctl enable hasura-actions
+$ sudo systemctl start hasura-actions
+```
