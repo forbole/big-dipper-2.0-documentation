@@ -12,7 +12,7 @@ In order to provide a better service and allow BigDipper to show the data faster
 
 This setup has allowed us to increase the performances quite a bit, but it also has its downsides. The main one is that developers now need to setup three things: the PostgreSQL database, the BDJuno binary and the Hasura endpoint for BigDipper 2.0 to work properly. To do this, we have prepared the following guides:
 
-1. [Setup your database](database.md).
+1. [Setup your database](database/database.md).
 2. [Setup and run BDJuno](setup.md).
 3. [Setup Hasura](hasura.md)
 

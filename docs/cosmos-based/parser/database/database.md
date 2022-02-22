@@ -1,6 +1,6 @@
 ---
-title: 1. Setup the database
-sidebar_position: 2
+title: Setup the database
+sidebar_position: 1
 ---
 
 Since BDJuno relies on a PostgreSQL database in order to store the parsed data, one of the most important things is to create such database. To do this the first thing you need to do is install [PostgreSQL](https://www.postgresql.org/).

@@ -223,6 +223,8 @@ data.
 | `ssl_mode` | `string` | [PostgreSQL SSL mode](https://www.postgresql.org/docs/9.1/libpq-ssl.html) to be used when connecting to the database. If not set, `disable` will be used. | `verify-ca` |
 | `max_idle_connections` | `integer` | Max number of idle connections that should be kept open (default: `1`) | `10` |
 | `max_open_connections` | `integer` | Max number of open connections at any time (default: `1`) | `15` | 
+| `partition_size` | `integer` | The interval of heights that a [partition table](https://www.postgresql.org/docs/10/ddl-partitioning.html) is created. | `100000` | 
+
 
 ## `pruning`
 
