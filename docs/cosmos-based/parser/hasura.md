@@ -44,24 +44,6 @@ If Hasura is complaining about metadata not being valid after importing them, pl
 :::
 
 ## Start Hasura Actions
-Upon the upgrade of BDjuno v1.0.0, certain address-specific data are no longer periodically parsed from the node and stored in the database. 
-Instead, those data are obtained directly from the node when necessary thanks to the [Hasura Actions](https://hasura.io/docs/latest/graphql/core/actions/index.html) service.
-
-Here's the list of data which are acquired through Hasura Actions:
-- Of a certain address/delegator:
-    - Account balance
-    - Delegation rewards
-    - Delegator withdraw address
-    - Delegations
-    - Total delegations amount
-    - Unbonding delegations
-    - Total unbonding delegations amount
-    - Redelegations
-- Of a certain validator:
-    - Commission amount
-    - Delegations to this validator
-    - Redelegations from this validator
-    - Unbonding delegations
 
 To activate Hasura actoins, simply run: 
 ```
