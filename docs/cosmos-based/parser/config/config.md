@@ -1,5 +1,5 @@
 ---
-title: BDJuno v2
+title: Yaml format
 sidebar_position: 1
 ---
 
@@ -39,6 +39,7 @@ database:
     schema: public
     max_open_connections: 10
     max_idle_connections: 10
+    partition_size: 100000
 logging:
     level: debug
     format: text

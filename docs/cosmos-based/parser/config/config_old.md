@@ -1,5 +1,5 @@
 ---
-title: BDJuno v1
+title: Toml format (old)
 sidebar_position: 2
 ---
 
