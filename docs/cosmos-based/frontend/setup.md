@@ -29,7 +29,7 @@ NEXT_PUBLIC_GRAPHQL_WS=ws://localhost:8080/v1/graphql
 NODE_ENV=development
 PORT=3000
 NEXT_PUBLIC_URL=http://localhost:3000
-NEXT_PUBLIC_RPC_WEBSOCKET=http://localhost:26657/websocket
+NEXT_PUBLIC_RPC_WEBSOCKET=ws://localhost:26657/websocket
 NEXT_PUBLIC_CHAIN_TYPE=testnet
 ```
 
@@ -81,7 +81,7 @@ If you have trouble understanding **tokenUnits** please insert it as the followi
     },
     "upretz": {
       "display": "pretz",
-      "exponent": 3
+      "exponent": 18
     },
     "ubar": {
       "display": "pretz",
@@ -151,23 +151,23 @@ npm run test
 npm run graphql:codegen
 ```
 
-<!-- ## Docker
-If you want to use this with docker update the following ENV Variables inside the `Dockerfile`:
+## Build and Run a Production Docker Image
+The following will build the docker image in production mode (replace the build arg values with your own).
 
 ```
-ENV NEXT_PUBLIC_GRAPHQL_URL <your_url>
-ENV NEXT_PUBLIC_GRAPHQL_WS <your_url>
-ENV NEXT_PUBLIC_URL <your_url>
-ENV NEXT_PUBLIC_WS_CHAIN_URL <your_url>
-ENV NODE_ENV production
-ENV PORT 3000
+docker build \
+--build-arg NEXT_PUBLIC_GRAPHQL_URL=http://localhost:8080/v1/graphql \
+--build-arg NEXT_PUBLIC_GRAPHQL_WS=ws://localhost:8080/v1/graphql \
+--build-arg NODE_ENV=production \
+--build-arg PORT=3000 \
+--build-arg NEXT_PUBLIC_URL=http://localhost:3000 \
+--build-arg NEXT_PUBLIC_WS_CHAIN_URL=ws://localhost:26657/websocket \
+--build-arg NEXT_PUBLIC_CHAIN_TYPE=testnet \
+-t <image-name> .
 ```
 
-```
-docker build
-```
+Run the image
 
- -->
-
-## Conclusion
-This will spin up a generic big dipper ui which will require customisation.
+```
+docker run -d --rm -p 3000:3000 <image-name>
+```
