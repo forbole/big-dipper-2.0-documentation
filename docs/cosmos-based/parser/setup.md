@@ -88,7 +88,7 @@ $ nano ~/.bdjuno/config.yaml
 For a better understanding of what each section and field refers to, please read the [config reference](config/config.md).
 
 ## Parsing the genesis file
-You may want to parse the genesis beofre start parsing the node. BDjuno will reads the genesis file from the node, or from the `genesis_file_path` in the `config.yaml` file when it's configured. 
+You may want to parse the genesis beofre start parsing the node. BDjuno will reads the genesis file from the node. 
 To parse all the registered genesis modules, simply run:
 
 ```shell
@@ -100,6 +100,18 @@ You may also specify module name(s) to parse only certain modules, for example:
 ```shell
 $ bdjuno parse-genesis auth bank staking
 ```
+
+It is also possible to parse the genesis without a running node:
+```yaml
+# config.yaml file
+node:
+  type: local
+  config:
+    path: /path/to/chain/directory
+parsing:
+  genesis_file_path: /path/to/genesis.json/file
+```
+
 
 ## Running BDJuno
 Once the configuration file has been setup and genesis file parsed, you can run BDJuno using the following command:
