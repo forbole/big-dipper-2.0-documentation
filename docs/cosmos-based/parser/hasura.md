@@ -69,8 +69,9 @@ WantedBy=multi-user.target
 EOF
 ```
 
-Enable and start the service: 
-```shell
-$ sudo systemctl enable hasura-actions
-$ sudo systemctl start hasura-actions
-```
+:::info Include flags
+Remember to include your custom configurations as flags at the `ExecStart` line if any. 
+Run `bdjuno hasura-actions --help` for more information.
+:::
+
+Check the migration guide [here](./migrations/v2.0.0.md) if you are upgrading to hasura actions.
