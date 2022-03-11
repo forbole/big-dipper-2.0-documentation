@@ -30,7 +30,7 @@ parsing:
     start_height: 1
     fast_sync: true
     genesis_file_path: [Path to the genesis file]
-    average_block_time: 5s
+    average_block_time: 3s
 database:
     name: database-name
     host: localhost
@@ -195,7 +195,7 @@ This section contains the details of the gRPC endpoint that BDJuno will use to q
 
 | Attribute | Type | Description | Example |
 | :-------: | :---: | :--------- | :------ |
-| `address` | `string` | Address of the gRPC endpoint | `localhost:9090` |
+| `address` | `string` | Address of the gRPC endpoint | `https://0.0.0.1:9090` |
 | `insecure` | `boolean` | Whether the gRPC endpoint is insecure or not | `false` |
 
 ## `parsing`
