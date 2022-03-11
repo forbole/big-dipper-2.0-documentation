@@ -74,4 +74,4 @@ Remember to include your custom configurations as flags at the `ExecStart` line 
 Run `bdjuno hasura-actions --help` for more information.
 :::
 
-Check the migration guide [here](/cosmos-based/parser/migrations/v2.0.0) if you are upgrading to hasura actions.
+Check the migration guide [here](/cosmos-based/parser/migrations/v2.0.0.md) if you are upgrading to hasura actions.
