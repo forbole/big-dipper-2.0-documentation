@@ -63,13 +63,11 @@ pricefeed:
               exponent: 0
             - denom: ptn
               exponent: 6
-distribution:
-    rewards_frequency: 100
 ```
 :::tip Migrate from TOML file
 If you previously ran bdjuno with a `config.toml` file, you can simply migrate to the new `config.yaml` file by running:
 ```shell
-$ bdjuno migrate
+$ bdjuno migrate v2
 ```
 A `config.yaml` file will be generated based on the exsisting `config.toml` file.
 :::
