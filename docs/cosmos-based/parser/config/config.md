@@ -30,6 +30,7 @@ parsing:
     start_height: 1
     fast_sync: true
     genesis_file_path: [Path to the genesis file]
+    average_block_time: 5s
 database:
     name: database-name
     host: localhost
@@ -40,6 +41,7 @@ database:
     max_open_connections: 10
     max_idle_connections: 10
     partition_size: 100000
+    partition_batch: 1000
 logging:
     level: debug
     format: text
@@ -205,6 +207,7 @@ This section contains the details of the gRPC endpoint that BDJuno will use to q
 | `parse_old_blocks` | `boolean` | Whether BDJuno should parse old chain blocks or not | `true` | 
 | `start_height` | `integer` | Height at which BDJuno should start parsing old blocks | `250000` | 
 | `workers` | `integer` | Number of works that will be used to fetch the data and store it inside the database | `5` |
+| `average_block_time` | `time` | The average block time for setting the frequency of querying new block heights. Default is 3 seconds.| `3s` |
 
 ## `database`
 
@@ -222,7 +225,8 @@ data.
 | `ssl_mode` | `string` | [PostgreSQL SSL mode](https://www.postgresql.org/docs/9.1/libpq-ssl.html) to be used when connecting to the database. If not set, `disable` will be used. | `verify-ca` |
 | `max_idle_connections` | `integer` | Max number of idle connections that should be kept open (default: `1`) | `10` |
 | `max_open_connections` | `integer` | Max number of open connections at any time (default: `1`) | `15` | 
-| `partition_size` | `integer` | The interval of heights that a [partition table](https://www.postgresql.org/docs/10/ddl-partitioning.html) is created. | `100000` | 
+| `partition_size` | `integer` | The interval of heights that a [partition table](https://www.postgresql.org/docs/10/ddl-partitioning.html) is created. Every 100,000 blocks per partition if set to 100000| `100000` | 
+| `partition_batch` | `integer` | For [migration](./../migrations/v3.0.0.md) to `v3.0.0`: how many rows of transactions are migrated per batch | `1000` | 
 
 
 ## `pruning`
