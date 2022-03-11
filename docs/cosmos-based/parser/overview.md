@@ -3,11 +3,7 @@ title: Overview
 sidebar_position: 1
 ---
 
-<<<<<<< HEAD
-Docs curently based on: `v1.2.0` `v1.2.0-stargate`
-=======
 Docs curently based on: `v2.0.0` `v2.0.0-stargate`
->>>>>>> aaron/fix_v2
 
 The old version of BigDipper relied on a chain node's LCD and RPC endpoints in order to get the data. Although this worked pretty good, we saw that there were some cases in which the node was not able to handle all the queries properly. This would result in the UI not displaying the data correctly or crashing.
 
