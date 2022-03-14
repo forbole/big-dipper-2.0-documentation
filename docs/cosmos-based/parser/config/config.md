@@ -110,17 +110,10 @@ Currently, we support the followings Cosmos modules:
    - average block times (since genesis, in a day, in an hour, in a minute)
 - `gov` to parse the `x/gox` data
 - `mint` to parse the `x/mint` data
-- `pricefeed` to get the token prices
+- `pricefeed` to get the token price every 2 mins and store historical price data every 1 hour
 - `slashing` to parse the `x/slashing` data
 - `staking` to parse the `x/staking` data
 - `distribution` to parse the `x/distribution` data
-- `history` to store historical data. This is currently limited to
-  - historical price data, stored every time the price changes
-  - historical account balance, which includes:
-     - the available balance
-     - the delegated amount
-     - the delegation reward 
-     - the validator commission reward
 
 :::caution Module order  
 When listing the different modules to be used, please note that there is some order that must be respected. In particular: 
