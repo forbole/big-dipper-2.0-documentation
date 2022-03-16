@@ -55,7 +55,8 @@ Usage:
 Available Commands:
   help        Help about any command
   init        Initializes the configuration files
-  parse       Start parsing the blockchain data
+  parse       Parse missing blocks or genesis file
+  start       Start parsing the blockchain data
   version     Print the version information
 
 Flags:
@@ -88,43 +89,31 @@ $ nano ~/.bdjuno/config.yaml
 For a better understanding of what each section and field refers to, please read the [config reference](config/config.md).
 
 ## Parsing the genesis file
-You may want to parse the genesis beofre start parsing the node. BDjuno will reads the genesis file from the node. 
+You may want to parse the genesis beofre start parsing the node. BDjuno will read the genesis.json from the default path: `~/.bdjuno/genesis.json`.
 To parse all the registered genesis modules, simply run:
 
 ```shell
-$ bdjuno parse-genesis
+$ bdjuno parse genesis-file
 ```
 
-You may also specify module name(s) to parse only certain modules, for example:
+You may also specify the genesis file path:
 
 ```shell
-$ bdjuno parse-genesis auth bank staking
+$ bdjuno parse genesis-file --genesis-file-path [/path/to/genesis.json]
 ```
-
-It is also possible to parse the genesis without a running node:
-```yaml
-# config.yaml file
-node:
-  type: local
-  config:
-    path: /path/to/chain/directory
-parsing:
-  genesis_file_path: /path/to/genesis.json/file
-```
-
 
 ## Running BDJuno
 Once the configuration file has been setup and genesis file parsed, you can run BDJuno using the following command:
 
 ```shell
-$ bdjuno parse
+$ bdjuno start
 ```
 
 If you are using a custom folder for the configuration file, please specify it using the `--home` flag:
 
 
 ```shell
-$ bdjuno parse --home /path/to/my/config/folder
+$ bdjuno start --home /path/to/my/config/folder
 ```
 
 We highly suggest you running BDJuno as a system service so that it can be restarted automatically in the case it stops. To do this you can run:
@@ -137,7 +126,7 @@ After=network-online.target
 
 [Service]
 User=$USER
-ExecStart=$GOPATH/bin/bdjuno parse
+ExecStart=$GOPATH/bin/bdjuno start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
