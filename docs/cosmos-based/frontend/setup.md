@@ -14,9 +14,9 @@ The following will teach you how to run big dipper 2.0 ui for dev mode. If you h
 Fork, clone and check out our [latest base release](https://github.com/forbole/big-dipper-2.0-cosmos/releases) for the most stable version or feel free to use the current documentation version. If you're feeling frisky feel free to use the `base` branch.
 
 ```
-git clone https://github.com/<user>/big-dipper-2.0-cosmos.git
-git checkout <tag>
-npm ci
+$ git clone https://github.com/<user>/big-dipper-2.0-cosmos.git
+$ git checkout <tag>
+$ npm ci
 ```
 
 ## Create .env
@@ -122,40 +122,40 @@ generates:
 
 ## Start Development mode
 ```
-npm run dev
+$ npm run dev
 ```
 
 ## Available Scripts
 
 ```
 # Starts the app in development mode using nodemon
-npm run dev
+$ npm run dev
 
 # Builds the app for production
-npm run build
+$ npm run build
 
 # Runs the build app in production mode
-npm run start
+$ npm run start
 
 # Typescript check
-npm run type-check
+$ npm run type-check
 
 # Lint check
-npm run lint
+$ npm run lint
 
 # Jest
-npm run test
+$ npm run test
 
 # Rebuilds gql types if anything in the `src/graphql` folder has changed.
 # Make sure the schema url in src/codegen.yml is updated if you use this
-npm run graphql:codegen
+$ npm run graphql:codegen
 ```
 
 ## Build and Run a Production Docker Image
 The following will build the docker image in production mode (replace the build arg values with your own).
 
 ```
-docker build \
+$ docker build \
 --build-arg NEXT_PUBLIC_GRAPHQL_URL=http://localhost:8080/v1/graphql \
 --build-arg NEXT_PUBLIC_GRAPHQL_WS=ws://localhost:8080/v1/graphql \
 --build-arg NODE_ENV=production \
@@ -169,5 +169,5 @@ docker build \
 Run the image
 
 ```
-docker run -d --rm -p 3000:3000 <image-name>
+$ docker run -d --rm -p 3000:3000 <image-name>
 ```
