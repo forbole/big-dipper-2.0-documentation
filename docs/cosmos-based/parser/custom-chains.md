@@ -11,7 +11,7 @@ Creating a custom version of BDJuno is pretty straightforward. All you have to d
 4. Add your application module managers.
 5. (Optional) Implement a custom messages parser.
 
-## Forking BDJuno
+## Fork BDJuno
 The first thing you need to do is [forking](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
 our [BDJuno repository](https://github.com/forbole/bdjuno/).
 

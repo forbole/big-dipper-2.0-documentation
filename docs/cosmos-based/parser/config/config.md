@@ -154,9 +154,9 @@ node:
 ```
 
 ## `pricefeed`
-This section contains the data used by the `pricefeed` to fetch the prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
+This section contains the data used by the `pricefeed` to fetch token prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
 
-The only fields required in this section is the `tokens` field which contains two fields:
+The only field required in this section is the `tokens` field which contains two subfields:
 - `name` represents the human-readable name of the token 
 - `units` contains a list of token units, each of them having the following attributes: 
   - `denom` 
@@ -165,11 +165,11 @@ The only fields required in this section is the `tokens` field which contains tw
   - (optional) `price_id`
 
 :::tip Provide a valid `price_id`  
-When fetching the various prices of the token, we will try and search for prices based on the `price_id` of the units that you provide. 
-For this reason, you need to make sure that you provide at least a unit with a `price_id` that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
+When fetching token prices, BDJuno will search for prices based on the `price_id` of the units that you provide. 
+For this reason, you need to make sure that you provide correct `price_id` value that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
 
 E.g. 
-If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN` and id `MyToken`, make sure you specify a token unit having `denom = "mtkn"`, `price_id = "mytoken"`  and `exponent = 6` (or whatever amount of decimal places your token unit has inside your chain). This will make sure the price is always fetched correctly.
+If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN` and id `mytoken`, make sure you specify a token unit having `denom = "mtkn"`, `price_id = "mytoken"`  and `exponent = 6` (or whatever amount of decimal places your token unit has inside your chain). This will make sure the price is always fetched correctly.
 :::
 
 ## `rpc`
@@ -218,8 +218,8 @@ data.
 | `ssl_mode` | `string` | [PostgreSQL SSL mode](https://www.postgresql.org/docs/9.1/libpq-ssl.html) to be used when connecting to the database. If not set, `disable` will be used. | `verify-ca` |
 | `max_idle_connections` | `integer` | Max number of idle connections that should be kept open (default: `1`) | `10` |
 | `max_open_connections` | `integer` | Max number of open connections at any time (default: `1`) | `15` | 
-| `partition_size` | `integer` | The interval of heights that a [partition table](https://www.postgresql.org/docs/10/ddl-partitioning.html) is created. Every 100,000 blocks per partition if set to 100000| `100000` | 
-| `partition_batch` | `integer` | For [migration](./../migrations/v3.0.0.md) to `v3.0.0`: how many rows of transactions are migrated per batch | `1000` | 
+| `partition_size` | `integer` | PostgreSQL [table partition](https://www.postgresql.org/docs/10/ddl-partitioning.html) height interval (since [v3.0.0](./../migrations/v3.0.0.md)) | `100000` | 
+| `partition_batch` | `integer` | Max number of transaction rows to migrate in each batch (since [v3.0.0](./../migrations/v3.0.0.md)) | `1000` | 
 
 
 ## `pruning`
@@ -252,5 +252,6 @@ This section allows to configure the telemetry details of Juno.
 | `port` | `uint` | Port on which the telemetry server will listen | `8000` | 
 
 :::tip    
-If the telemetry server is enabled, a new endpoint at the provided port and path `/metrics` will expose [Prometheus](https://prometheus.io/) data.
+If telemetry server is enabled, a new endpoint at the provided port and path `/metrics` 
+will expose [Prometheus](https://prometheus.io/) data.
 :::
