@@ -5,7 +5,7 @@ sidebar_position: 3
 
 
 ## Installing BDJuno
-In order to install BDJuno you are required to have [Go 1.15+](https://golang.org/dl/) installed on your machine. Once you have it, the first thing to do is to clone the GitHub repository. To do this you can run
+In order to install BDJuno you are required to have [Go 1.17+](https://golang.org/dl/) installed on your machine. Once you have it, the first thing to do is to clone the GitHub repository. To do this you can run
 
 ```shell
 $ git clone https://github.com/forbole/bdjuno.git
@@ -55,7 +55,8 @@ Usage:
 Available Commands:
   help        Help about any command
   init        Initializes the configuration files
-  parse       Parse missing blocks or genesis file
+  migrate     Perform the migrations from the current version to the specified one
+  parse       Parse some data without the need to re-syncing the whole database from scratch
   start       Start parsing the blockchain data
   version     Print the version information
 
@@ -88,15 +89,15 @@ $ nano ~/.bdjuno/config.yaml
 
 For a better understanding of what each section and field refers to, please read the [config reference](config/config.md).
 
-## Parsing the genesis file
-You may want to parse the genesis beofre start parsing the node. BDjuno will read the genesis.json from the default path: `~/.bdjuno/genesis.json`.
-To parse all the registered genesis modules, simply run:
+## Parsing genesis file
+You can parse genesis file before start parsing the node. BDjuno will read the genesis.json from the default path: `~/.bdjuno/genesis.json`.
+To parse all registered genesis modules, simply run:
 
 ```shell
 $ bdjuno parse genesis-file
 ```
 
-You may also specify the genesis file path:
+You can also specify the genesis file path:
 
 ```shell
 $ bdjuno parse genesis-file --genesis-file-path [/path/to/genesis.json]
