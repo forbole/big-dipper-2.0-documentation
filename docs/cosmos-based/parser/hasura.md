@@ -1,5 +1,5 @@
 ---
-title: 3. Run Hasura
+title: 3. Setup and run Hasura
 sidebar_position: 4
 ---
 
