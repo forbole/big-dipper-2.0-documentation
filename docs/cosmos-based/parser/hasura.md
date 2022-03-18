@@ -54,7 +54,7 @@ $ bdjuno hasura-actions
 By default hasura-actions will listen to rpc and grpc on `127.0.0.1:26657` and `127.0.0.1:9090` ports. To pass custom address run
 
 ```
-bdjuno hasura-actions --rpc <custom-rpc-address> --grpc <custom grpc address>
+$ bdjuno hasura-actions --rpc <custom-rpc-address> --grpc <custom grpc address>
 ```
 
 It is also recommended to run Hasura Actions as a system service:

@@ -35,7 +35,7 @@ similar to the one you are based on.
 To checkout the branch you desire, just run:
 
 ```shell
-git checkout -t origin/v2/<branch-name>
+$ git checkout -t origin/v2/<branch-name>
 
 # E.g.
 # git checkout origin/v2/cosmos/stargate
@@ -44,7 +44,7 @@ git checkout -t origin/v2/<branch-name>
 Now that you have checked out the Cosmos branch, you can create your own branch:
 
 ```shell
-git checkout -b chains/<project-name>
+$ git checkout -b chains/<project-name>
 
 # E.g
 # git checkout -b chains/my-project
@@ -59,7 +59,7 @@ example [Desmos](https://github.com/desmos-labs/desmos/).
 The first thing we want to do is adding Desmos as a dependency:
 
 ```shell
-go get -u github.com/desmos-labs/desmos@v2.3.0
+$ go get -u github.com/desmos-labs/desmos@v2.3.0
 ```
 
 This will edit your `go.mod` and `go.sum` file including the Desmos dependency.

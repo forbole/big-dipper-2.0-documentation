@@ -12,18 +12,18 @@ $ git clone https://github.com/forbole/bdjuno.git
 ```
 
 :::info Select the correct branch  
-If you want to parse a chain that is **not** the Cosmos one, make sure you checkout the correct BDJuno branch before running the `install` command.
+If you want to parse a chain that is **not** the Cosmos one, make sure you checkout the correct BDJuno branch before running `make install` command.
 
 To view a list of all the available branches you can use
 
 ```shell
-git branch -r
+$ git branch -r
 ```
 
 Then, you can checkout the branch you prefer using the `checkout` command:
 
 ```shell
-git checkout -t origin/v2/chains/<chain>
+$ git checkout -t origin/v2/chains/<chain>
 
 # E.g.
 # git checkout -t origin/v2/chains/osmosis
