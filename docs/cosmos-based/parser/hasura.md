@@ -3,13 +3,14 @@ title: 3. Run Hasura
 sidebar_position: 4
 ---
 
-Once you have successfully started BDJuno, the last step that you can do is set up [Hasura](https://hasura.io/) to expose the parsed data using a GraphQL endpoint. To do this you have to:
+Once you have successfully started BDJuno, the last step is to set up [Hasura](https://hasura.io/) to expose the parsed data using a GraphQL endpoint. To do this you have to:
 
 1. Install Hasura
 2. Import the metadata we provide you with
+3. Setup Hasura Actions 
 
 ## Installing Hasura
-The easiest way to install Hasura is to follow the [official guide](https://hasura.io/docs/latest/graphql/core/getting-started/docker-simple.html). This will allow you to have a Hasura instance up and running in matter of minutes.
+The easiest way to install Hasura is to follow the [official guide](https://hasura.io/docs/latest/graphql/core/getting-started/docker-simple.html). This will allow you to have a Hasura instance up and running in a matter of minutes.
 
 :::caution Role variable    
 When starting Hasura make sure you specified the following environmental variable:
@@ -26,15 +27,15 @@ Once this is done, you will also need to install [Hasura CLI](https://hasura.io/
 When you have installed both Hasura and Hasura CLI, you are now ready to import the metadata. This will allow you to easily set up all the queries that BigDipper will later need. To do this, you can simply run the following commands:
 
 ```shell
-# Move into the hasura folder inside the root of BDJuno
-$ cd /path/to/BDJuno/hasura
+# Change to hasura directory inside bdjuno repository
+$ cd /path/to/bdjuno/hasura
 
 # Import the metadata into the remote server
 $ hasura metadata apply --endpoint <your-endpoint> --admin-secret <hasura_password>
 ```
 
 :::info Verify endpoint  
-Make sure that `<your-endpoint>` represents your full GraphQL endpoint (eg. `http://localhost:8080`) and `<hasura_password>` matches the console secret you specified while starting Hasura. If you did not use a secret, then you can remove the flag.
+Make sure that `<your-endpoint>` represents your full GraphQL endpoint (eg. `http://localhost:8080`) and `<hasura_password>` matches the console secret you specified while starting Hasura. You can remove the flag if you did not use a secret.
 
 Once the metadata is successfully applied, you will be able to start using it properly.
 :::
@@ -48,6 +49,12 @@ If Hasura is complaining about metadata not being valid after importing them, pl
 To activate Hasura actoins, simply run: 
 ```
 $ bdjuno hasura-actions
+```
+
+By default hasura-actions will listen to rpc and grpc on `127.0.0.1:26657` and `127.0.0.1:9090` ports. To pass custom address run
+
+```
+bdjuno hasura-actions --rpc <custom-rpc-address> --grpc <custom grpc address>
 ```
 
 It is also recommended to run Hasura Actions as a system service:
