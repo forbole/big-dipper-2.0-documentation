@@ -90,7 +90,7 @@ $ nano ~/.bdjuno/config.yaml
 For a better understanding of what each section and field refers to, please read the [config reference](config/config.md).
 
 ## Parsing genesis file
-You can parse genesis file before start parsing the node. BDjuno will read the genesis.json from the default path: `~/.bdjuno/genesis.json`.
+You can parse genesis file before start parsing the node. BDJuno will read the genesis.json from the default path: `~/.bdjuno/genesis.json`.
 To parse all registered genesis modules, simply run:
 
 ```shell
