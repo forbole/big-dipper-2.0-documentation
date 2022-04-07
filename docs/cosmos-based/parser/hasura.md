@@ -12,14 +12,26 @@ Once you have successfully started BDJuno, the last step is to set up [Hasura](h
 ## Installing Hasura
 The easiest way to install Hasura is to follow the [official guide](https://hasura.io/docs/latest/graphql/core/getting-started/docker-simple.html). This will allow you to have a Hasura instance up and running in a matter of minutes.
 
-:::caution Role variable    
-When starting Hasura make sure you specified the following environmental variable:
+:::caution env variables
+When starting Hasura, make sure you specify the following environmental variables:
+- __Role:__
 ```
-HASURA_GRAPHQL_UNAUTHORIZED_ROLE="anonymous"
+-e HASURA_GRAPHQL_UNAUTHORIZED_ROLE="anonymous"
 ```
-:::
-
 This will make sure that even non-authenticated users will be able to access the endpoint correctly.
+
+- __Hasura Actions Base URL:__
+```
+-e ACTION_BASE_URL="[Base URL for Hasura Actions Handlers]"
+```
+This allows you to set up custom end points for Hasura Actions handlers. 
+
+By default, Hasura Actions service is run on `http://localhost:3000` so you may set up as below:
+```
+-e ACTION_BASE_URL="http://localhost:3000"
+```
+
+:::
 
 Once this is done, you will also need to install [Hasura CLI](https://hasura.io/docs/latest/graphql/core/hasura-cli/install-hasura-cli.html#install-hasura-cli) on the same machine where you cloned the BDJuno repository.
 
