@@ -26,8 +26,7 @@ This will make sure that even non-authenticated users will be able to access the
 ```
 This allows you to set up custom endpoints for Hasura Actions handlers. 
 
-<!-- markdown-link-check-disable-next-line -->
-By default, Hasura Actions service runs on `http://localhost:3000` so you may want to set it up as below: 
+By default, Hasura Actions service runs on http://localhost:3000 so you may want to set it up as below: 
 ```
 -e ACTION_BASE_URL="http://localhost:3000"
 ```
