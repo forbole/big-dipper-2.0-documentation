@@ -1,7 +1,7 @@
 {
   "ignorePatterns": [
     {
-      "pattern": "^http://localhost:(0-9)+"
+      "pattern": "http://localhost:[0-9]+"
     }
   ],
   "timeout": "20s",
