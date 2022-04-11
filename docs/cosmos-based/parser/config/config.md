@@ -66,6 +66,8 @@ pricefeed:
               exponent: 0
             - denom: ptn
               exponent: 6
+actions:
+    port: 3000
 ```
 :::tip Migrate from TOML file
 If you previously ran bdjuno with a `config.toml` file, you can simply migrate to the new `config.yaml` file by running:
@@ -87,6 +89,7 @@ Let's see what each section refers to:
 - [`pruning`](#pruning)
 - [`logging`](#logging)
 - [`telemetry`](#telemetry)
+- [`actions`](#actions)
 
 ## `chain`
 
@@ -114,6 +117,8 @@ Currently, we support the followings Cosmos modules:
 - `slashing` to parse the `x/slashing` data
 - `staking` to parse the `x/staking` data
 - `distribution` to parse the `x/distribution` data
+- `actions` to support Hasura Actions
+
 
 :::caution Module order  
 When listing the different modules to be used, please note that there is some order that must be respected. In particular: 
@@ -255,3 +260,14 @@ This section allows to configure the telemetry details of Juno.
 If telemetry server is enabled, a new endpoint at the provided port and path `/metrics` 
 will expose [Prometheus](https://prometheus.io/) data.
 :::
+
+## `actions`
+
+This section allows to configure Hasura Actions.
+
+| Attribute | Type | Description | Example |
+| :-------: | :---: | :--------- | :------ |
+| `port` | `uint` | Port on which the hasura actions service will run | `3000` | 
+| `rpc` | `uint` | RPC port on which the hasura actions service will listen | `26657` | 
+| `grpc` | `uint` | gRPC port on which the hasura actions service will listen | `9090` | 
+| `insecure` | `boolean` | Whether the gRPC endpoint is insecure or not | `false` |

@@ -7,7 +7,7 @@ Once you have successfully started BDJuno, the last step is to set up [Hasura](h
 
 1. Install Hasura
 2. Import the metadata we provide you with
-3. Setup Hasura Actions 
+3. Configure Hasura Actions 
 
 ## Installing Hasura
 The easiest way to install Hasura is to follow the [official guide](https://hasura.io/docs/latest/graphql/core/getting-started/docker-simple.html). This will allow you to have a Hasura instance up and running in a matter of minutes.
@@ -56,41 +56,31 @@ Once the metadata is successfully applied, you will be able to start using it pr
 If Hasura is complaining about metadata not being valid after importing them, please head into the _Metadata status_ page, delete all the metadata and try re-importing them. This should fix all the issues.
 :::
 
-## Start Hasura Actions
-
-To activate Hasura actoins, simply run: 
+## Configure Hasura Actions
+Hasura Actions allows to query certain address-specific data from the node when needed instead of storing it in database. It can be enabled inside `modules` section inside `config.yaml` file
 ```
-$ bdjuno hasura-actions
+chain:
+    bech32_prefix: desmos
+    modules:
+        - actions
 ```
-
-By default hasura-actions will listen to rpc and grpc on `127.0.0.1:26657` and `127.0.0.1:9090` ports. To pass custom address run
-
+It runs by default on port `3000` but it can be modified inside `actions` section inside `config.yaml` file
 ```
-$ bdjuno hasura-actions --rpc <custom-rpc-address> --grpc <custom grpc address>
-```
-
-It is also recommended to run Hasura Actions as a system service:
-```shell
-$ sudo tee /etc/systemd/system/hasura-actions.service > /dev/null <<EOF
-[Unit]
-Description=BDJuno Hasura Actions
-After=network-online.target
-
-[Service]
-User=$USER
-ExecStart=$GOPATH/bin/bdjuno hasura-actions
-Restart=always
-RestartSec=3
-LimitNOFILE=4096
-
-[Install]
-WantedBy=multi-user.target
-EOF
+actions:
+    port: 3000
 ```
 
-:::info Include flags
-Remember to include your custom configurations as flags at the `ExecStart` line if any. 
-Run `bdjuno hasura-actions --help` for more information.
-:::
-
-Check the migration guide [here](./migrations/v2.0.0.md) if you are upgrading to hasura actions.
+### Configure Hasura Actions Custom Endpoints (Optional)
+By default Hasura Actions will listen to default node address. If you would like to use custom endpoints for hasura actions, you can set them inside `config.yaml` file.
+```
+actions:
+    port: 3000
+    node:
+        rpc:
+            client_name: hasura-actions
+            address: http://localhost:26657
+            max_connections: 20
+        grpc:
+            address: http://localhost:9090
+            insecure: true
+```
