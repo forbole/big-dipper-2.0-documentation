@@ -56,7 +56,7 @@ Once the metadata is successfully applied, you will be able to start using it pr
 If Hasura is complaining about metadata not being valid after importing them, please head into the _Metadata status_ page, delete all the metadata, and try re-importing them. This should fix all the issues.
 :::
 
-## Configure Hasura Actions
+## Configuring Hasura Actions
 Hasura Actions allows querying certain address-specific data from the node when needed instead of storing it in the database. It can be enabled inside `modules` section inside `config.yaml` file.
 ```yaml
 chain:
@@ -70,7 +70,7 @@ actions:
     port: 3000
 ```
 
-### Configure Hasura Actions Custom Endpoints (Optional)
+### Configuring Hasura Actions Custom Endpoints (Optional)
 By default Hasura Actions will listen to default node address. If you would like to use custom endpoints for hasura actions, you can set them inside `config.yaml` file.
 ```yaml
 actions:
