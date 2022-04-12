@@ -82,8 +82,6 @@ Let's see what each section refers to:
 - [`chain`](#chain)
 - [`node`](#node)
 - [`pricefeed`](#pricefeed)
-- [`rpc`](#rpc)
-- [`grpc`](#grpc)
 - [`parsing`](#parsing)
 - [`database`](#database)
 - [`pruning`](#pruning)
@@ -135,9 +133,29 @@ This section defines from which source bdjuno will parse the data.
 | Attribute | Description | Example | 
 | :-------: | :--------- | :--------- | 
 | `type` | Read from a running node, or from the chain's db of the same machine | `remote` or `local` |
-| `config` | Config according to the node type | [`example`](#node-type-example) |
+| [`config`](#node-config) | Config according to the node type | [`example`](#node-config-example) |
 
-### Node type example
+### Node Config
+### `rpc`
+
+This section contains the details of the chain RPC to which BDJuno will connect.
+
+| Attribute | Type | Description | Example |
+| :-------: | :---: | :--------- | :------ |
+| `address` | `string` | Address of the RPC endpoint | `http://localhost:26657` |
+| `client_name` | `string` | Client name used when subscribing to the Tendermint websocket | `bdjuno` |
+| `max_connections` | `int` | Max number of connections that can created towards the RPC node (any value less or equal to `0` means to use the default one instead) | `20` |
+
+### `grpc`
+
+This section contains the details of the gRPC endpoint that BDJuno will use to query the data.
+
+| Attribute | Type | Description | Example |
+| :-------: | :---: | :--------- | :------ |
+| `address` | `string` | Address of the gRPC endpoint | `https://0.0.0.1:9090` |
+| `insecure` | `boolean` | Whether the gRPC endpoint is insecure or not | `false` |
+
+### Node config example
 ```yaml
 # node type : remote
 node:
@@ -176,25 +194,6 @@ For this reason, you need to make sure that you provide correct `price_id` value
 E.g. 
 If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN` and id `mytoken`, make sure you specify a token unit having `denom = "mtkn"`, `price_id = "mytoken"`  and `exponent = 6` (or whatever amount of decimal places your token unit has inside your chain). This will make sure the price is always fetched correctly.
 :::
-
-## `rpc`
-
-This section contains the details of the chain RPC to which BDJuno will connect.
-
-| Attribute | Type | Description | Example |
-| :-------: | :---: | :--------- | :------ |
-| `address` | `string` | Address of the RPC endpoint | `http://localhost:26657` |
-| `client_name` | `string` | Client name used when subscribing to the Tendermint websocket | `bdjuno` |
-| `max_connections` | `int` | Max number of connections that can created towards the RPC node (any value less or equal to `0` means to use the default one instead) | `20` |
-
-## `grpc`
-
-This section contains the details of the gRPC endpoint that BDJuno will use to query the data.
-
-| Attribute | Type | Description | Example |
-| :-------: | :---: | :--------- | :------ |
-| `address` | `string` | Address of the gRPC endpoint | `https://0.0.0.1:9090` |
-| `insecure` | `boolean` | Whether the gRPC endpoint is insecure or not | `false` |
 
 ## `parsing`
 
@@ -268,6 +267,15 @@ This section allows to configure Hasura Actions.
 | Attribute | Type | Description | Example |
 | :-------: | :---: | :--------- | :------ |
 | `port` | `uint` | Port on which the hasura actions service will run | `3000` | 
-| `rpc` | `uint` | RPC port on which the hasura actions service will listen | `26657` | 
-| `grpc` | `uint` | gRPC port on which the hasura actions service will listen | `9090` | 
-| `insecure` | `boolean` | Whether the gRPC endpoint is insecure or not | `false` |
+| `node` (optional) | `node details` | RPC & gRPC address on which the hasura actions service will listen. If not configured, it will listen to the addresses in the [`node config`](#node) section. | [`example`](#actions-node-example) | 
+
+### Actions Node Example
+```yaml
+actions:
+    node: 
+        rpc:
+            address: http://localhost:26657 
+        grpc:
+            address: http://localhost:9090
+            insecure: true
+```

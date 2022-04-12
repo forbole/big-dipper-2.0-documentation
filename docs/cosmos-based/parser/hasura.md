@@ -58,21 +58,21 @@ If Hasura is complaining about metadata not being valid after importing them, pl
 
 ## Configure Hasura Actions
 Hasura Actions allows to query certain address-specific data from the node when needed instead of storing it in database. It can be enabled inside `modules` section inside `config.yaml` file
-```
+```yaml
 chain:
     bech32_prefix: desmos
     modules:
         - actions
 ```
 It runs by default on port `3000` but it can be modified inside `actions` section inside `config.yaml` file
-```
+```yaml
 actions:
     port: 3000
 ```
 
 ### Configure Hasura Actions Custom Endpoints (Optional)
 By default Hasura Actions will listen to default node address. If you would like to use custom endpoints for hasura actions, you can set them inside `config.yaml` file.
-```
+```yaml
 actions:
     port: 3000
     node:
