@@ -23,10 +23,10 @@ $ git branch -r
 Then, you can checkout the branch you prefer using the `checkout` command:
 
 ```shell
-$ git checkout -t origin/v2/chains/<chain>
+$ git checkout -t origin/chains/<chain>
 
 # E.g.
-# git checkout -t origin/v2/chains/osmosis
+# git checkout -t origin/chains/osmosis
 ```
 
 If you do not see a branch for the chain you would like to parse, please head to the [BDJuno repository](https://github.com/forbole/bdjuno/) and open an issue asking for an integration. 

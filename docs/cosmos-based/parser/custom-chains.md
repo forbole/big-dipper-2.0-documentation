@@ -35,10 +35,10 @@ similar to the one you are based on.
 To checkout the branch you desire, just run:
 
 ```shell
-$ git checkout -t origin/v2/<branch-name>
+$ git checkout -t origin/<branch-name>
 
 # E.g.
-# git checkout origin/v2/cosmos/stargate
+# git checkout origin/cosmos/stargate
 ```
 
 Now that you have checked out the Cosmos branch, you can create your own branch:
@@ -91,7 +91,7 @@ messages. Failing in doing this will result in BDJuno returning an error each ti
 a transaction.
 
 To tell BDJuno which modules you support, you need to change what the 
-[`cmd/bdjuno/main.go#getBasicManages`](https://github.com/forbole/bdjuno/blob/v2/cosmos/stargate/cmd/bdjuno/main.go#L54-L58) 
+[`cmd/bdjuno/main.go#getBasicManages`](https://github.com/forbole/bdjuno/blob/cosmos/stargate/cmd/bdjuno/main.go#L54-L58) 
 function returns by adding your project's `ModuleBasics`. As an example, for Desmos we will change it to be
 
 ```go
@@ -129,14 +129,14 @@ func CustomAddressesParser(cdc codec.Marshaler, cosmosMsg sdk.Msg) ([]string, er
 
 This method should return either a list of all the parsed addresses, or `messages.MessageNotSupported(cosmosMsg)` is the message is not supported.
 
-If you want to take a look at a reference implementation you can refer to the [Desmos one](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
+If you want to take a look at a reference implementation you can refer to the [Desmos one](https://github.com/forbole/bdjuno/blob/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 
 :::tip Combine multiple parsers
-If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining that parsers together using the [`messages.JoinMessageParsers`](https://github.com/forbole/juno/blob/v2/cosmos-stargate/modules/messages/account_parser.go) method.
-You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
+If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining that parsers together using the [`messages.JoinMessageParsers`](https://github.com/forbole/juno/blob/v3/cosmos-stargate/modules/messages/account_parser.go) method.
+You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 :::
 
-Finally, once you have your custom addresses parser setup, you need to add it to the [`cmd/bdjuno/main.go#getAddressesParser`](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/main.go) method. Here is the example for Desmos:
+Finally, once you have your custom addresses parser setup, you need to add it to the [`cmd/bdjuno/main.go#getAddressesParser`](https://github.com/forbole/bdjuno/blob/chains/desmos/mainnet/cmd/bdjuno/main.go) method. Here is the example for Desmos:
 
 ```go
 func getAddressesParser() messages.MessageAddressesParser {
