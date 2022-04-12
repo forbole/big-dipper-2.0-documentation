@@ -272,6 +272,7 @@ This section allows to configure Hasura Actions.
 ### Actions Node Example
 ```yaml
 actions:
+    port: 3000
     node: 
         rpc:
             address: http://localhost:26657 
