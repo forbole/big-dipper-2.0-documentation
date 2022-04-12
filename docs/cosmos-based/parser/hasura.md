@@ -53,18 +53,18 @@ Once the metadata is successfully applied, you will be able to start using it pr
 :::
 
 :::caution Metadata error    
-If Hasura is complaining about metadata not being valid after importing them, please head into the _Metadata status_ page, delete all the metadata and try re-importing them. This should fix all the issues.
+If Hasura is complaining about metadata not being valid after importing them, please head into the _Metadata status_ page, delete all the metadata, and try re-importing them. This should fix all the issues.
 :::
 
 ## Configure Hasura Actions
-Hasura Actions allows to query certain address-specific data from the node when needed instead of storing it in database. It can be enabled inside `modules` section inside `config.yaml` file
+Hasura Actions allows querying certain address-specific data from the node when needed instead of storing it in the database. It can be enabled inside `modules` section inside `config.yaml` file.
 ```yaml
 chain:
     bech32_prefix: desmos
     modules:
         - actions
 ```
-It runs by default on port `3000` but it can be modified inside `actions` section inside `config.yaml` file
+It runs by default on port `3000` but it can be modified inside the `actions` section inside the `config.yaml` file.
 ```yaml
 actions:
     port: 3000

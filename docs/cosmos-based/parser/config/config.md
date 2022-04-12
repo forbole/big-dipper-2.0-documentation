@@ -3,7 +3,7 @@ title: Yaml format
 sidebar_position: 1
 ---
 
-Here's an example of `config.yaml` file:
+Here's an example of the `config.yaml` file:
 
 ```yaml
 chain:
@@ -70,11 +70,11 @@ actions:
     port: 3000
 ```
 :::tip Migrate from TOML file
-If you previously ran bdjuno with a `config.toml` file, you can simply migrate to the new `config.yaml` file by running:
+If you previously ran bdjuno with a `config.toml` file, you can easily migrate to the new `config.yaml` file by running:
 ```shell
 $ bdjuno migrate v2
 ```
-A `config.yaml` file will be generated based on the exsisting `config.toml` file.
+A `config.yaml` file will be generated based on the existing `config.toml` file.
 :::
 
 Let's see what each section refers to:
@@ -189,7 +189,7 @@ The only field required in this section is the `tokens` field which contains two
 
 :::tip Provide a valid `price_id`  
 When fetching token prices, BDJuno will search for prices based on the `price_id` of the units that you provide. 
-For this reason, you need to make sure that you provide correct `price_id` value that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
+For this reason, you need to make sure that you provide the correct `price_id` value that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
 
 E.g. 
 If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN` and id `mytoken`, make sure you specify a token unit having `denom = "mtkn"`, `price_id = "mytoken"`  and `exponent = 6` (or whatever amount of decimal places your token unit has inside your chain). This will make sure the price is always fetched correctly.

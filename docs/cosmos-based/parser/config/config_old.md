@@ -113,7 +113,7 @@ When listing the different modules to be used, please note that there is some or
 ## `pricefeed`
 This section contains the data used by the `pricefeed` to fetch the prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
 
-The only fields required in this section is the `tokens` field, which must be an array of objects, each one containing two fields:
+The only field required in this section is the `tokens` field, which must be an array of objects, each one containing two fields:
 - `name` represents the human-readable name of the token 
 - `units` contains a list of token units, each of them having the following attributes: 
   - `denom` 
@@ -177,7 +177,7 @@ data.
 
 ## `pruning`
 
-This section contains the configuration about the pruning options of the database. Note that this will have effect only
+This section contains the configuration about the pruning options of the database. Note that this will have an effect only
 if you add the `"pruning"` entry to the `modules` field of the [`cosmos` config](#cosmos).
 
 | Attribute | Type | Description | Example |

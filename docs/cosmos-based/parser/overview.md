@@ -9,10 +9,10 @@ The old version of BigDipper relied on a chain node's LCD and RPC endpoints in o
 
 In order to provide a better service and allow BigDipper to show the data faster and in a more reliable way, with BigDipper 2.0 we changed how we handle the data. Instead of relying on a chain fullnode directly, we have created an intermediary layer that acts as a _cache_ storing the data inside a relational database. This has two main advantages:
 
-1. Relational databases are known to be very fast when quering the data, which results in a better performance for BigDipper.
+1. Relational databases are known to be very fast when querying the data, which results in a better performance for BigDipper.
 2. Since we store the data inside a [PostgreSQL](https://www.postgresql.org/) database, we can expose a GraphQL endpoint on top of it automatically using [Hasura](https://hasura.io). This makes it possible to query the data easier and to subscribe to data changes without having to do the wiring ourselves.
 
-This setup has allowed us to increase the performances quite a bit, but it also has its downsides. The main one is that developers now need to setup three things: the PostgreSQL database, the BDJuno binary and the Hasura endpoint for BigDipper 2.0 to work properly. To do this, we have prepared the following guides:
+This setup has allowed us to increase the performances quite a bit, but it also has its downsides. The main one is that developers now need to setup three things: the PostgreSQL database, the BDJuno binary, and the Hasura endpoint for BigDipper 2.0 to work properly. To do this, we have prepared the following guides:
 
 1. [Setup the database](database.md).
 2. [Setup and run BDJuno](setup.md).
