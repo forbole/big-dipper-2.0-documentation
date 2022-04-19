@@ -11,7 +11,7 @@ Creating a custom version of BDJuno is pretty straightforward. All you have to d
 4. Add your application module managers.
 5. (Optional) Implement a custom messages parser.
 
-## Forking BDJuno
+## Fork BDJuno
 The first thing you need to do is [forking](https://docs.github.com/en/get-started/quickstart/fork-a-repo)
 our [BDJuno repository](https://github.com/forbole/bdjuno/).
 
@@ -20,11 +20,10 @@ update the base repo to make sure you have a constantly updated BDJuno codebase 
 
 ## Create a new branch
 The next thing you want to do is create a new branch for your project. The best way to do this is by checking out one of
-the `cosmos/` branches and then crete a new branch from there.
+the `cosmos/` branches and then create a new branch from there.
 
 :::info Select the correct Cosmos branch Currently BDJuno supports multiple Cosmos versions (you can see them all [here](https://github.com/forbole/bdjuno/branches/all?query=cosmos%2F ))
-It is important that when you create your
-new branch you checkout the one that is most similar to the Cosmos SDK your project is based on.
+It is important that when you create your new branch you checkout the one that is most similar to the Cosmos SDK your project is based on.
 :::
 
 :::info Custom SDK implementations If you are developing a project with a custom Cosmos SDK implementation, don't worry.
@@ -35,16 +34,16 @@ similar to the one you are based on.
 To checkout the branch you desire, just run:
 
 ```shell
-git checkout -t origin/v2/<branch-name>
+$ git checkout -t origin/<branch-name>
 
 # E.g.
-# git checkout origin/v2/cosmos/stargate
+# git checkout origin/cosmos/stargate
 ```
 
 Now that you have checked out the Cosmos branch, you can create your own branch:
 
 ```shell
-git checkout -b chains/<project-name>
+$ git checkout -b chains/<project-name>
 
 # E.g
 # git checkout -b chains/my-project
@@ -53,19 +52,19 @@ git checkout -b chains/<project-name>
 This will create a new `chains/` branch that you can start working on.
 
 ## Add or update your dependencies
-Now it's time to add the dependencies that your project needs. For these steps we will take as
+Now it's time to add the dependencies that your project needs. For these steps, we will take as
 example [Desmos](https://github.com/desmos-labs/desmos/).
 
-The first thing we want to do is adding Desmos as a dependency:
+The first thing we want to do is add Desmos as a dependency:
 
 ```shell
-go get -u github.com/desmos-labs/desmos@v2.3.0
+$ go get -u github.com/desmos-labs/desmos@v2.3.0
 ```
 
-This will edit your `go.mod` and `go.sum` file including the Desmos dependency.
+This will edit your `go.mod` and `go.sum` files including the Desmos dependency.
 
-Then, we need to make sure that the project we want to use does not uses some custom dependencies. To do this, we can
-take a loot at [its `go.mod` file](https://github.com/desmos-labs/desmos/blob/v1.0.0/go.mod) and search for
+Then, we need to make sure that the project we want to use does not use some custom dependencies. To do this, we can
+take a look at [its `go.mod` file](https://github.com/desmos-labs/desmos/blob/v1.0.0/go.mod) and search for
 any `replace` directives.
 
 In our case, Desmos uses some custom dependencies:
@@ -91,15 +90,15 @@ messages. Failing in doing this will result in BDJuno returning an error each ti
 a transaction.
 
 To tell BDJuno which modules you support, you need to change what the 
-[`cmd/bdjuno/main.go#getBasicManages`](https://github.com/forbole/bdjuno/blob/v2/cosmos/stargate/cmd/bdjuno/main.go#L54-L58) 
+[`cmd/bdjuno/main.go#getBasicManages`](https://github.com/forbole/bdjuno/blob/cosmos/stargate/cmd/bdjuno/main.go#L54-L58) 
 function returns by adding your project's `ModuleBasics`. As an example, for Desmos we will change it to be
 
 ```go
 func getBasicManagers() []module.BasicManager {
-	return []module.BasicManager{
-		simapp.ModuleBasics,
-		desmosapp.ModuleBasics, // <--- We have added this line
-	}
+    return []module.BasicManager{
+        simapp.ModuleBasics,
+        desmosapp.ModuleBasics, // <--- We have added this line
+    }
 }
 ```
 
@@ -127,23 +126,23 @@ Inside that file, you need to create a function with the following signature:
 func CustomAddressesParser(cdc codec.Marshaler, cosmosMsg sdk.Msg) ([]string, error)
 ```
 
-This method should return either a list of all the parsed addresses, or `messages.MessageNotSupported(cosmosMsg)` is the message is not supported.
+This method should return either a list of all the parsed addresses or `messages.MessageNotSupported(cosmosMsg)` if the message is not supported.
 
-If you want to take a look at a reference implementation you can refer to the [Desmos one](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
+If you want to take a look at a reference implementation you can refer to the [Desmos one](https://github.com/forbole/bdjuno/blob/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 
 :::tip Combine multiple parsers
-If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining that parsers together using the [`messages.JoinMessageParsers`](https://github.com/forbole/juno/blob/v2/cosmos-stargate/modules/messages/account_parser.go) method.
-You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
+If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining those parsers together using the [`messages.JoinMessageParsers`](https://github.com/forbole/juno/blob/v3/cosmos-stargate/modules/messages/account_parser.go) method.
+You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 :::
 
-Finally, once you have your custom addresses parser setup, you need to add it to the [`cmd/bdjuno/main.go#getAddressesParser`](https://github.com/forbole/bdjuno/blob/v2/chains/desmos/mainnet/cmd/bdjuno/main.go) method. Here is the example for Desmos:
+Finally, once you have your custom addresses parser setup, you need to add it to the [`cmd/bdjuno/main.go#getAddressesParser`](https://github.com/forbole/bdjuno/blob/chains/desmos/mainnet/cmd/bdjuno/main.go) method. Here is the example for Desmos:
 
 ```go
 func getAddressesParser() messages.MessageAddressesParser {
-	return messages.JoinMessageParsers(
-		desmosMessageAddressesParser,
-		messages.CosmosMessageAddressesParser,
-	)
+    return messages.JoinMessageParsers(
+        desmosMessageAddressesParser,
+        messages.CosmosMessageAddressesParser,
+    )
 }
 ```
 

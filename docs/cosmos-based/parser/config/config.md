@@ -1,9 +1,9 @@
 ---
-title: BDJuno v2
+title: Yaml format
 sidebar_position: 1
 ---
 
-Here's an example of `config.yaml` file:
+Here's an example of the `config.yaml` file:
 
 ```yaml
 chain:
@@ -30,6 +30,7 @@ parsing:
     start_height: 1
     fast_sync: true
     genesis_file_path: [Path to the genesis file]
+    average_block_time: 3s
 database:
     name: database-name
     host: localhost
@@ -39,6 +40,8 @@ database:
     schema: public
     max_open_connections: 10
     max_idle_connections: 10
+    partition_size: 100000
+    partition_batch: 1000
 logging:
     level: debug
     format: text
@@ -63,13 +66,15 @@ pricefeed:
               exponent: 0
             - denom: ptn
               exponent: 6
+actions:
+    port: 3000
 ```
 :::tip Migrate from TOML file
-If you previously ran bdjuno with a `config.toml` file, you can simply migrate to the new `config.yaml` file by running:
+If you previously ran bdjuno with a `config.toml` file, you can easily migrate to the new `config.yaml` file by running:
 ```shell
 $ bdjuno migrate v2
 ```
-A `config.yaml` file will be generated based on the exsisting `config.toml` file.
+A `config.yaml` file will be generated based on the existing `config.toml` file.
 :::
 
 Let's see what each section refers to:
@@ -77,13 +82,12 @@ Let's see what each section refers to:
 - [`chain`](#chain)
 - [`node`](#node)
 - [`pricefeed`](#pricefeed)
-- [`rpc`](#rpc)
-- [`grpc`](#grpc)
 - [`parsing`](#parsing)
 - [`database`](#database)
 - [`pruning`](#pruning)
 - [`logging`](#logging)
 - [`telemetry`](#telemetry)
+- [`actions`](#actions)
 
 ## `chain`
 
@@ -107,17 +111,12 @@ Currently, we support the followings Cosmos modules:
    - average block times (since genesis, in a day, in an hour, in a minute)
 - `gov` to parse the `x/gox` data
 - `mint` to parse the `x/mint` data
-- `pricefeed` to get the token prices
+- `pricefeed` to get the token price every 2 mins and store historical price data every 1 hour
 - `slashing` to parse the `x/slashing` data
 - `staking` to parse the `x/staking` data
 - `distribution` to parse the `x/distribution` data
-- `history` to store historical data. This is currently limited to
-  - historical price data, stored every time the price changes
-  - historical account balance, which includes:
-     - the available balance
-     - the delegated amount
-     - the delegation reward 
-     - the validator commission reward
+- `actions` to support Hasura Actions
+
 
 :::caution Module order  
 When listing the different modules to be used, please note that there is some order that must be respected. In particular: 
@@ -134,9 +133,29 @@ This section defines from which source bdjuno will parse the data.
 | Attribute | Description | Example | 
 | :-------: | :--------- | :--------- | 
 | `type` | Read from a running node, or from the chain's db of the same machine | `remote` or `local` |
-| `config` | Config according to the node type | [`example`](#node-type-example) |
+| [`config`](#node-config) | Config according to the node type | [`example`](#node-config-example) |
 
-### Node type example
+### Node Config
+### `rpc`
+
+This section contains the details of the chain RPC to which BDJuno will connect.
+
+| Attribute | Type | Description | Example |
+| :-------: | :---: | :--------- | :------ |
+| `address` | `string` | Address of the RPC endpoint | `http://localhost:26657` |
+| `client_name` | `string` | Client name used when subscribing to the Tendermint websocket | `bdjuno` |
+| `max_connections` | `int` | Max number of connections that can created towards the RPC node (any value less or equal to `0` means to use the default one instead) | `20` |
+
+### `grpc`
+
+This section contains the details of the gRPC endpoint that BDJuno will use to query the data.
+
+| Attribute | Type | Description | Example |
+| :-------: | :---: | :--------- | :------ |
+| `address` | `string` | Address of the gRPC endpoint | `https://0.0.0.1:9090` |
+| `insecure` | `boolean` | Whether the gRPC endpoint is insecure or not | `false` |
+
+### Node config example
 ```yaml
 # node type : remote
 node:
@@ -158,9 +177,9 @@ node:
 ```
 
 ## `pricefeed`
-This section contains the data used by the `pricefeed` to fetch the prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
+This section contains the data used by the `pricefeed` to fetch token prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
 
-The only fields required in this section is the `tokens` field which contains two fields:
+The only field required in this section is the `tokens` field which contains two subfields:
 - `name` represents the human-readable name of the token 
 - `units` contains a list of token units, each of them having the following attributes: 
   - `denom` 
@@ -169,31 +188,12 @@ The only fields required in this section is the `tokens` field which contains tw
   - (optional) `price_id`
 
 :::tip Provide a valid `price_id`  
-When fetching the various prices of the token, we will try and search for prices based on the `price_id` of the units that you provide. 
-For this reason, you need to make sure that you provide at least a unit with a `price_id` that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
+When fetching token prices, BDJuno will search for prices based on the `price_id` of the units that you provide. 
+For this reason, you need to make sure that you provide the correct `price_id` value that is listed inside the [CoinGecko coins list API](https://api.coingecko.com/api/v3/coins/list).
 
 E.g. 
-If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN` and id `MyToken`, make sure you specify a token unit having `denom = "mtkn"`, `price_id = "mytoken"`  and `exponent = 6` (or whatever amount of decimal places your token unit has inside your chain). This will make sure the price is always fetched correctly.
+If you have a token that is named `MyToken` and is listed inside CoinGecko with the ticker `$MTKN` and id `mytoken`, make sure you specify a token unit having `denom = "mtkn"`, `price_id = "mytoken"`  and `exponent = 6` (or whatever amount of decimal places your token unit has inside your chain). This will make sure the price is always fetched correctly.
 :::
-
-## `rpc`
-
-This section contains the details of the chain RPC to which BDJuno will connect.
-
-| Attribute | Type | Description | Example |
-| :-------: | :---: | :--------- | :------ |
-| `address` | `string` | Address of the RPC endpoint | `http://localhost:26657` |
-| `client_name` | `string` | Client name used when subscribing to the Tendermint websocket | `bdjuno` |
-| `max_connections` | `int` | Max number of connections that can created towards the RPC node (any value less or equal to `0` means to use the default one instead) | `20` |
-
-## `grpc`
-
-This section contains the details of the gRPC endpoint that BDJuno will use to query the data.
-
-| Attribute | Type | Description | Example |
-| :-------: | :---: | :--------- | :------ |
-| `address` | `string` | Address of the gRPC endpoint | `localhost:9090` |
-| `insecure` | `boolean` | Whether the gRPC endpoint is insecure or not | `false` |
 
 ## `parsing`
 
@@ -204,6 +204,7 @@ This section contains the details of the gRPC endpoint that BDJuno will use to q
 | `parse_old_blocks` | `boolean` | Whether BDJuno should parse old chain blocks or not | `true` | 
 | `start_height` | `integer` | Height at which BDJuno should start parsing old blocks | `250000` | 
 | `workers` | `integer` | Number of works that will be used to fetch the data and store it inside the database | `5` |
+| `average_block_time` | `time` | The average block time for setting the frequency of querying new block heights. Default is 3 seconds.| `3s` |
 
 ## `database`
 
@@ -221,6 +222,9 @@ data.
 | `ssl_mode` | `string` | [PostgreSQL SSL mode](https://www.postgresql.org/docs/9.1/libpq-ssl.html) to be used when connecting to the database. If not set, `disable` will be used. | `verify-ca` |
 | `max_idle_connections` | `integer` | Max number of idle connections that should be kept open (default: `1`) | `10` |
 | `max_open_connections` | `integer` | Max number of open connections at any time (default: `1`) | `15` | 
+| `partition_size` | `integer` | PostgreSQL [table partition](https://www.postgresql.org/docs/10/ddl-partitioning.html) height interval (since [v3.0.0](./../migrations/v3.0.0.md)) | `100000` | 
+| `partition_batch` | `integer` | Max number of transaction rows to migrate in each batch (since [v3.0.0](./../migrations/v3.0.0.md)) | `1000` | 
+
 
 ## `pruning`
 
@@ -252,5 +256,27 @@ This section allows to configure the telemetry details of Juno.
 | `port` | `uint` | Port on which the telemetry server will listen | `8000` | 
 
 :::tip    
-If the telemetry server is enabled, a new endpoint at the provided port and path `/metrics` will expose [Prometheus](https://prometheus.io/) data.
+If telemetry server is enabled, a new endpoint at the provided port and path `/metrics` 
+will expose [Prometheus](https://prometheus.io/) data.
 :::
+
+## `actions`
+
+This section allows to configure Hasura Actions.
+
+| Attribute | Type | Description | Example |
+| :-------: | :---: | :--------- | :------ |
+| `port` | `uint` | Port on which the hasura actions service will run | `3000` | 
+| `node` (optional) | `node details` | RPC & gRPC address on which the hasura actions service will listen. If not configured, it will listen to the addresses in the [`node config`](#node) section. | [`example`](#actions-node-example) | 
+
+### Actions Node Example
+```yaml
+actions:
+    port: 3000
+    node: 
+        rpc:
+            address: http://localhost:26657 
+        grpc:
+            address: http://localhost:9090
+            insecure: true
+```
