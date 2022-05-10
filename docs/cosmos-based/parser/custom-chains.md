@@ -131,7 +131,7 @@ This method should return either a list of all the parsed addresses or `messages
 If you want to take a look at a reference implementation you can refer to the [Desmos one](https://github.com/forbole/bdjuno/blob/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 
 :::tip Combine multiple parsers
-If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining those parsers together using the [`messages.JoinMessageParsers`](https://github.com/forbole/juno/blob/v3/cosmos-stargate/modules/messages/account_parser.go) method.
+If you have multiple modules that should be parsed in different ways, we suggest you splitting them into different parsers and then combining those parsers together using the [`messages.JoinMessageParsers`](https://github.com/forbole/juno/blob/cosmos/v0.44.x/modules/messages/account_parser.go) method.
 You can see how this is used for Desmos [here](https://github.com/forbole/bdjuno/blob/chains/desmos/mainnet/cmd/bdjuno/desmos.go).
 :::
 
