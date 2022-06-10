@@ -32,16 +32,16 @@ The default `config.toml` file should look like the following:
   workers = 1
 
 [pruning]
-  interval = 10
-  keep_every = 500
-  keep_recent = 100
+  interval = 10000
+  keep_every = 10000
+  keep_recent = 10000
 
 [rpc]
   address = "http://localhost:8899"
   client_name = "soljuno"
 
 [telemetry]
-  port = 5000
+  port = 9487
 
 [worker]
   pool-size = 1000000
