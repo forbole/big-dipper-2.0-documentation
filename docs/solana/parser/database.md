@@ -26,7 +26,7 @@ $ soljuno db init ./schema --yes
 Please make sure you select the correct branch inside the SolJuno repository to view the correct schema for the chain you want to parse.
 :::
 
-# Backup accounts status
+## Backup accounts status
 
 To backup all the accounts status for migrating to the new instance from old one, execute the following command:
 
