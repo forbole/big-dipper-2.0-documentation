@@ -24,6 +24,7 @@ $ psql -U '<your_user>' -d bdjuno -f 01-auth.sql
 $ psql -U '<your_user>' -d bdjuno -f 02-bank.sql
 $ psql -U '<your_user>' -d bdjuno -f 03-staking.sql
 $ ...
+
 # do it for all the SQL files in this folder
 ```
 
