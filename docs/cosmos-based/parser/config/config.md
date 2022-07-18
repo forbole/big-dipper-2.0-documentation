@@ -178,7 +178,7 @@ node:
 
 :::caution Node Type  
 If you encounter the error `ERROR: failed to start client: failed to initialize database: resource temporarily unavailable`
-, you might want to make sure the `node.type` is `remote` which tells BDjuno to read from a running node, instead of the static chain's DB.
+, you might want to make sure the `node.type` is set to `remote` which tells BDjuno to read from a running node, instead of the static chain's DB.
 :::
 
 
