@@ -132,7 +132,7 @@ This section defines from which source bdjuno will parse the data.
 
 | Attribute | Description | Example | 
 | :-------: | :--------- | :--------- | 
-| `type` | Read from a running node, or from the chain's db of the same machine | `remote` or `local` |
+| `type` | Read from a running node, or from the chain's db of the local machine | `remote` or `local` |
 | [`config`](#node-config) | Config according to the node type | [`example`](#node-config-example) |
 
 ### Node Config
@@ -157,7 +157,7 @@ This section contains the details of the gRPC endpoint that BDJuno will use to q
 
 ### Node config example
 ```yaml
-# node type : remote
+# node type : remote, BDjuno is set to read from a running node
 node:
     type: remote
     config:
@@ -169,12 +169,18 @@ node:
             address: http://localhost:9090
             insecure: true
 
-# node type : local
+# node type : local, BDjuno is set to read from the chain's database of a static node
 node:
     type: local
     config:
         home: path/to/.desmos
 ```
+
+:::caution Node Type  
+If you encounter the error `ERROR: failed to start client: failed to initialize database: resource temporarily unavailable`
+, you might want to make sure the `node.type` is set to `remote` which tells BDjuno to read from a running node, instead of the static chain's DB.
+:::
+
 
 ## `pricefeed`
 This section contains the data used by the `pricefeed` to fetch token prices using the [CoinGecko](https://www.coingecko.com/en) APIs.
