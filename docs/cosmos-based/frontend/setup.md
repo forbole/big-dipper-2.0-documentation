@@ -3,7 +3,7 @@ title: Setup
 sidebar_position: 1
 ---
 
-Docs curently based on: `base-v2.0.0`
+Docs curently based on: `base-v2.2.0`
 
 :::info
 Requires [bdjuno](https://github.com/forbole/bdjuno) to be on at least `v1.1.0` release if it's being used.
@@ -28,7 +28,6 @@ NEXT_PUBLIC_GRAPHQL_URL=http://localhost:8080/v1/graphql
 NEXT_PUBLIC_GRAPHQL_WS=ws://localhost:8080/v1/graphql
 NODE_ENV=development
 PORT=3000
-NEXT_PUBLIC_URL=http://localhost:3000
 NEXT_PUBLIC_RPC_WEBSOCKET=ws://localhost:26657/websocket
 NEXT_PUBLIC_CHAIN_TYPE=testnet
 ```
@@ -39,7 +38,6 @@ NEXT_PUBLIC_CHAIN_TYPE=testnet
 | `NEXT_PUBLIC_GRAPHQL_WS` | The websocket exposed by hasura using [BDJuno](https://github.com/forbole/bdjuno) |
 | `NODE_ENV` | `development` / `production` |
 | `PORT` | The port to run the app on |
-| `NEXT_PUBLIC_URL` | The api where you will be hosting the frontend of this explorer. Used for SEO and url preview purposes |
 | `NEXT_PUBLIC_RPC_WEBSOCKET` | RPC websocket (used for the consensus module) |
 | `NEXT_PUBLIC_CHAIN_TYPE` | `testnet` / `mainnet` |
 
@@ -160,7 +158,6 @@ $ docker build \
 --build-arg NEXT_PUBLIC_GRAPHQL_WS=ws://localhost:8080/v1/graphql \
 --build-arg NODE_ENV=production \
 --build-arg PORT=3000 \
---build-arg NEXT_PUBLIC_URL=http://localhost:3000 \
 --build-arg NEXT_PUBLIC_WS_CHAIN_URL=ws://localhost:26657/websocket \
 --build-arg NEXT_PUBLIC_CHAIN_TYPE=testnet \
 -t <image-name> .
