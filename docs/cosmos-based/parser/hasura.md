@@ -75,9 +75,10 @@ chain:
     modules:
         - actions
 ```
-It runs by default on port `3000` but it can be modified inside the `actions` section inside the `config.yaml` file.
+It runs by default on `127.0.0.1:3000` but it can be modified inside the `actions` section inside the `config.yaml` file.
 ```yaml
 actions:
+    host: 127.0.0.1
     port: 3000
 ```
 
@@ -97,6 +98,7 @@ It should return the account balance and the output should look similar to this:
 By default Hasura Actions will listen to default node address. If you would like to use custom endpoints for hasura actions, you can set them inside `config.yaml` file.
 ```yaml
 actions:
+    host: 127.0.0.1
     port: 3000
     node:
         rpc:
