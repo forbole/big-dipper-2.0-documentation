@@ -164,29 +164,21 @@ export default ChainIcon;
 ## Check Hasura is in sync with our graphql operations
 In `apps/web-examplenet/codegen.yml` change the __schema__ field to your graphql url to run `yarn run graphql:codegen`. If there are no errors it will regenerate the needed `src/graphql/types.tsx`. If there is an error this can indicate the backend hasura was not setup correctly.
 
-```yaml {11}
+```yaml {9}
 overwrite: true
 config:
   # omitOperationSuffix: true
   skipTypeNameForRoot: true
 generates:
-  ./src/graphql/types.tsx:
+  ./src/graphql/types/general_types.ts:
     documents:
-      - './src/**/*.graphql'
-      - './src/**/*_actions.ts'
-      - '!./src/**/desmos_profile.graphql'
+      - 'src/graphql/general/*'
     schema: <your graphql url>
     plugins:
       - "typescript"
       - "typescript-operations"
       - "typescript-react-apollo" # To generate custom hooks per query
-  ./src/graphql/desmos_profile.ts:
-    schema: https://gql.mainnet.desmos.network/v1/graphql
-    documents:
-      - 'src/graphql/desmos_profile_graphql.ts'
-    plugins:
-      - "typescript"
-      - "typescript-operations"
+
 
 ```
 
