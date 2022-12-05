@@ -162,7 +162,7 @@ export default ChainIcon;
 </details>
 
 ## Check Hasura is in sync with our graphql operations
-In `packages/ui/codegen.yml` change the __schema__ field to your graphql url to run `yarn run graphql:codegen`. If there are no errors it will regenerate the needed `src/graphql/types.tsx`. If there is an error this can indicate the backend hasura was not setup correctly.
+In `apps/web-examplenet/codegen.yml` change the __schema__ field to your graphql url to run `yarn run graphql:codegen`. If there are no errors it will regenerate the needed `src/graphql/types.tsx`. If there is an error this can indicate the backend hasura was not setup correctly.
 
 ```yaml {11}
 overwrite: true
