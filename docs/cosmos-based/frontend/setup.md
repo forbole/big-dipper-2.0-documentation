@@ -192,14 +192,12 @@ $ corepack enable && yarn dev --filter web-examplenet
 
 ## Build and Run the Docker Image
 1. In `docker-compose.yml`, modify the `web` service under `services` to your own project name, for example: 
-```yaml
-  # web: -> replace with our project name
+```yaml {1,6}
   web-examplenet:
     build:
       context: .
       dockerfile: ./docker/web.Dockerfile
       args:
-        # PROJECT_NAME: web -> replace with our project name
         PROJECT_NAME: web-examplenet
         NEXT_PUBLIC_CHAIN_TYPE: ${NEXT_PUBLIC_CHAIN_TYPE:-mainnet}
         TURBO_TEAM: ${TURBO_TEAM:-}
