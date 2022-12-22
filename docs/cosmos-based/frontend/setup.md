@@ -26,10 +26,9 @@ To run your own Big Dipper 2.0 UI, you would need a new project directory. The f
 
 ### Use the base project to create your own project
 1. __Rename Directory__: The base project directory is `apps/web`. Since our chain is `examplenet`, we will rename it to `apps/web-examplenet`. Now the project name is `web-examplenet`.
-2. __Update File__: Update the workspace name with the project name `web-examplenet` in `apps/web-examplenet/package.json` at line 2:
-```json
+2. __Update `package.json`__: Update the workspace name with the project name `web-examplenet` in `apps/web-examplenet/package.json` at line 2:
+```json {2}
 {
-  // "name": "web", (delete this line)
   "name": "web-examplenet",
   "version": "1.0.0",
 
@@ -43,17 +42,15 @@ Under the `apps/` directory, you may find many projects such as `web-agoric`, `w
 ## Prepare the config files
 
 ### Chain config
-1. __Rename Chain Config File__: the base chain config file is located at `packages/shared-utils/configs/chains/base.json`. We need to rename it according to the project name. Now let's rename it from `base.json` to __`examplenet.json`__. We can also delete the rest of config files under this folder and keep just `examplenet.json`.
-
-2. __Update File__: Update `chainName` with the chain name of your project. It must be identical to the config file name in point 1. For instance: 
+The chain config file is located at `apps/web-examplenet/src/chain.json`. To customize your explorer, you need to: 
+1. Update `chainName` field with the chain name of your project. For instance: 
 ```json
 {
   "chainName" : "examplenet"
 }
 ```
 
-3. For the rest of the config file, check [chain config reference](chain-config.md) for a better understanding of what each section and field refers to.
-
+2. For the rest of the configs, including colors, themes, endpoints, etc., check [chain config reference](chain-config.md) for a better understanding of what each section and field refers to.
 
 ### General Config
 In `packages/shared-utils/configs/general.json`, **update the json** to give proper maintainer credits as well as a way for users to submit bugs/ issues.
@@ -107,30 +104,31 @@ import examplenetLogoLight from 'shared-utils/assets/logos/examplenet-light.svg'
 <summary> this file should look like: </summary>
 
 ```ts
-import React from 'react';
+import chainCoing from '@/chainConfig';
+import { useStyles } from '@/components/ChainIcon/useStyles';
 import classnames from 'classnames';
 import Image, { type ImageProps } from 'next/future/image';
 
-// Images
-import baseIconLight from 'shared-utils/assets/icons/base-light.svg';
-import baseLogoLight from 'shared-utils/assets/logos/base-light.svg';
+import baseIconLight from 'shared-utils/assets/icons/base-light.svg?url';
+import baseLogoLight from 'shared-utils/assets/logos/base-light.svg?url';
 import examplenetIconLight from 'shared-utils/assets/icons/examplenet-light.svg';
 import examplenetLogoLight from 'shared-utils/assets/logos/examplenet-light.svg';
 
-import chainCoing from '@/chainConfig';
-import { useStyles } from '@/components/ChainIcon/useStyles';
-
-type IconProps = Omit<ImageProps, 'id' | 'src'> & {
+interface IconProps extends Omit<ImageProps, 'id' | 'src'> {
   type: 'icon' | 'logo';
-};
+  chainName?: string;
+}
 
-const ChainIcon = ({ className, type, ...props }: IconProps) => {
+const ChainIcon = ({
+  className,
+  type,
+  chainName = chainCoing().chainName,
+  ...props
+}: IconProps) => {
   const classes = useStyles();
-  const { chainName } = chainCoing;
 
   let [iconDark, iconLight] =
     type === 'icon' ? [baseIconLight, baseIconLight] : [baseLogoLight, baseLogoLight];
-
   switch (chainName) {
     case 'examplenet':
       [iconDark, iconLight] =
@@ -138,6 +136,8 @@ const ChainIcon = ({ className, type, ...props }: IconProps) => {
           ? [examplenetIconLight, examplenetIconLight]
           : [examplenetLogoLight, examplenetLogoLight];
       break;
+
+
     default:
       throw new Error(`chain ${chainName} not supported`);
   }
@@ -211,3 +211,6 @@ $ corepack enable && yarn dev --filter web-examplenet
 ```
 
 2. Run `docker-compose up web-examplenet` to build and run the project's docker image
+
+## List the explorer
+In case you would like to list your explorer among the rest of the BigDipper explorers, you may open a PR to [this Repository](https://github.com/forbole/big-dipper-networks) by modifying the `networks.json` file with your network information.
