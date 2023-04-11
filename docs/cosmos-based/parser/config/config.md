@@ -32,12 +32,7 @@ parsing:
     genesis_file_path: [Path to the genesis file]
     average_block_time: 3s
 database:
-    name: database-name
-    host: localhost
-    port: 5432
-    user: user
-    password: password
-    schema: public
+    url: postgres://user:password@localhost:5432/database-name?sslmode=disable&search_path=public
     max_open_connections: 10
     max_idle_connections: 10
     partition_size: 100000
@@ -109,14 +104,17 @@ Currently, we support the followings Cosmos modules:
 - `consensus` to parse the consensus data. This includes:
    - the genesis details
    - average block times (since genesis, in a day, in an hour, in a minute)
+- `feegrant` to parse the `x/feegrant` data
 - `gov` to parse the `x/gox` data
 - `mint` to parse the `x/mint` data
 - `pricefeed` to get the token price every 2 mins and store historical price data every 1 hour
 - `slashing` to parse the `x/slashing` data
 - `staking` to parse the `x/staking` data
 - `distribution` to parse the `x/distribution` data
+- `upgrade` to parse the `x/upgrade` data and handle software upgrades
+- `wasm` to parse the `x/wasm` data
 - `actions` to support Hasura Actions
-
+- `daily refetch` to refetch missing blocks in database every day
 
 :::caution Module order  
 When listing the different modules to be used, please note that there is some order that must be respected. In particular: 
@@ -214,18 +212,11 @@ If you have a token that is named `MyToken` and is listed inside CoinGecko with 
 
 ## `database`
 
-This section contains all the different configurations related to the PostgreSQL database where BDJuno will write the
-data.
+This section contains all the different configurations related to the PostgreSQL database where BDJuno will write the data.
 
 | Attribute | Type | Description | Example |
 | :-------: | :---: | :--------- | :------ |
-| `host` | `string` | Host where the database is found | `localhost` | 
-| `port` | `integer` | Port to be used to connect to the PostgreSQL instance | `5432` |
-| `name` | `string` | Name of the database to which connect to | `bdjuno` | 
-| `user` | `string` | Name of the user to use when connecting to the database. This user must have read/write access to all the database. | `bdjuno` | 
-| `password` | `string` | Password to be used to connect to the database instance | `password` | 
-| `schema` | `string` | Schema to be used inside the database (default: `public`) | `public` | 
-| `ssl_mode` | `string` | [PostgreSQL SSL mode](https://www.postgresql.org/docs/9.1/libpq-ssl.html) to be used when connecting to the database. If not set, `disable` will be used. | `verify-ca` |
+| `url` | `string` | PostgreSQL database URL | `postgres://user:password@localhost:5432/bdjuno?sslmode=disable&search_path=public` | 
 | `max_idle_connections` | `integer` | Max number of idle connections that should be kept open (default: `1`) | `10` |
 | `max_open_connections` | `integer` | Max number of open connections at any time (default: `1`) | `15` | 
 | `partition_size` | `integer` | PostgreSQL [table partition](https://www.postgresql.org/docs/10/ddl-partitioning.html) height interval (since [v3.0.0](./../migrations/v3.0.0.md)) | `100000` | 
@@ -254,7 +245,7 @@ This section allows to configure the logging details of BDJuno.
 
 ## `telemetry`
 
-This section allows to configure the telemetry details of Juno.
+This section allows to configure the telemetry details of BDJuno.
 
 | Attribute | Type | Description | Example |
 | :-------: | :---: | :--------- | :------ |
