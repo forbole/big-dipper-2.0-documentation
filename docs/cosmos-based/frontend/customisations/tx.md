@@ -7,7 +7,7 @@ By default, message types that don't exist on the base chain (cosmos in this cas
 
 ## Create Tx Model
 
-Setup a class model in `src/models/msg/<module>`. We have separated all tx msgs by their corresponding chain module making it easy to associate.
+Setup a class model in `packages/ui/src/models/msg/<module>`. We have separated all tx msgs by their corresponding chain module making it easy to associate.
 
 :::info
 All class messages **must** contain the following:
@@ -19,7 +19,7 @@ All class messages **must** contain the following:
 
 Example:
 
-```
+```ts
 class MsgUnjail {
   public category: Categories; // required
   public type: string; // required
@@ -43,10 +43,10 @@ class MsgUnjail {
 }
 ```
 
-Import and export your model in `src/models/index.ts`
+Import and export your model in `packages/ui/src/models/index.ts`
 
-```
-import MsgUnjail from './msg/slashing/msg_unjail';
+```ts
+export { default as MsgUnjail } from '@/models/msg/slashing/msg_unjail';
 
 export {
   MsgUnjail
@@ -54,15 +54,15 @@ export {
 ```
 ## Set i18n Content
 
-Create legible label in `public/locales/<lang>/message_labels.json`
+Create legible label in `apps/web-example/public/locales/<lang>/message_labels.json`
 
-```
+```ts
 "txUnjailLabel": "Unjail"
 ```
 
-Create legible content in `public/locales/<lang>/message_contents.json`
+Create legible content in `apps/web-example/public/locales/<lang>/message_contents.json`
 
-```
+```ts
 "txUnjailContent": "<0>{{validator}}</0> unjailed"
 ```
 
@@ -72,9 +72,9 @@ We are using **[next-translate](https://www.npmjs.com/package/next-translate)**
 
 ## Create UI Component
 
-In `src/components/msg` create a corresponding component for your newly created model.
+In `packages/ui/src/components/msg/slashing/unjail/index.tsx` create a corresponding component for your newly created model.
 
-```
+```typescript
 import React from 'react';
 import Trans from 'next-translate/Trans';
 import { Typography } from '@material-ui/core';
@@ -110,21 +110,17 @@ export default Unjail;
 
 ```
 
-Import and export your component in `src/components/msg/index.ts`
+Import and export your component in `packages/ui/src/components/msg/index.ts`
 
-```
-import Unjail from './slashing/unjail';
-
-export {
-  Unjail
-}
+```ts
+export { default as Unjail } from '@/components/msg/slashing/unjail';
 ```
 
 ## Update Utils
 
 In `src/components/msg/utils.tsx` go to `customTypeToModel` and add your model in the following format
 
-```
+```ts
 <message type>: {
   model: <Model>,
   content: <Component>,
@@ -146,10 +142,10 @@ Your newly added transaction message should be showing up correctly.
 
 ## Update Message Filter
 
-Edit the utils file in `src/components/transaction_messages_filter/utils.tsx`.
+Edit the utils file in `packages/ui/src/components/transaction_messages_filter/utils.tsx`.
 
 :::info
-`key` value must exist in `src/models/msg/types.ts`
+`key` value must exist in `packages/ui/src/models/msg/types/index.ts`
 :::
 
 ```
