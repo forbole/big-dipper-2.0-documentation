@@ -28,7 +28,7 @@ This config file will help the explorer display each chain uniquely.
 :::info Default themes
 - The `deuteranopia` & `tritanopia` are the default themes whose colors are hard-coded in the codes. In case you want to modify them, check out the file `packages/ui/src/styles/theme/deuteranopia.ts` & `packages/ui/src/styles/theme/tritanopia.ts`.
 
-- You can refer to other chain's configs under `packages/shared-utils/configs/chains/`, pick the `dark` / `light` theme you prefer, and copy-paste them in your own config file to apply them.
+- You can refer to other chain's configs located at `apps/web-*/src/chain.json`, pick the `dark` / `light` theme you prefer, and copy-paste them in your own config file to apply them.
 :::
 
 ### Chains
