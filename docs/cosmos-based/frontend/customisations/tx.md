@@ -23,51 +23,48 @@ Example:
 class MsgUnjail {
   public category: Categories; // required
   public type: string; // required
-  public json: any; // required
+  public json: object; // required
   public validatorAddress: string;
 
-  constructor(payload: any) {
+  constructor(payload: object) {
     this.category = 'slashing'; // required
-    this.type = payload.type; // required
-    this.json = payload.json; // required
-    this.validatorAddress = payload.validatorAddress;
+    this.type = R.pathOr('', ['type'], payload); // required
+    this.validatorAddress = R.pathOr('', ['validatorAddress'], payload);
+    this.json = R.pathOr({}, ['json'], payload); // required
   }
 
-  static fromJson(json: any) {
-    return new MsgUnjail({
+  static fromJson(json: object): MsgUnjail {
+    return {
+      category: 'slashing',
       json,
-      type: json['@type'],
-      validatorAddress: json.validator_addr,
-    });
+      type: R.pathOr('', ['@type'], json),
+      validatorAddress: R.pathOr('', ['validator_addr'], json),
+    };
   }
 }
 ```
 
-Import and export your model in `packages/ui/src/models/index.ts`
+Export your model in `packages/ui/src/models/index.ts`.
 
 ```ts
 export { default as MsgUnjail } from '@/models/msg/slashing/msg_unjail';
-
-export {
-  MsgUnjail
-}
 ```
 ## Set i18n Content
 
-Create legible label in `apps/web-example/public/locales/<lang>/message_labels.json`
+Create legible label in `apps/web-examplenet/public/locales/<lang>/message_labels.json`
 
 ```ts
 "txUnjailLabel": "Unjail"
 ```
 
-Create legible content in `apps/web-example/public/locales/<lang>/message_contents.json`
+Create legible content in `apps/web-examplenet/public/locales/<lang>/message_contents.json`
 
 ```ts
 "txUnjailContent": "<0>{{validator}}</0> unjailed"
 ```
 
 :::info
-We are using **[next-translate](https://www.npmjs.com/package/next-translate)**
+We are using **[next-i18next](https://www.npmjs.com/package/next-i18next)**.
 :::
 
 ## Create UI Component
@@ -75,16 +72,14 @@ We are using **[next-translate](https://www.npmjs.com/package/next-translate)**
 In `packages/ui/src/components/msg/slashing/unjail/index.tsx` create a corresponding component for your newly created model.
 
 ```typescript
-import React from 'react';
-import Trans from 'next-translate/Trans';
-import { Typography } from '@material-ui/core';
-import { Name } from '@components';
-import { MsgUnjail } from '@models';
-import { useProfileRecoil } from '@recoil/profiles';
+import Typography from '@mui/material/Typography';
+import { Trans } from 'next-i18next';
+import { FC } from 'react';
+import Name from '@/components/name';
+import { type MsgUnjail } from '@/models';
+import { useProfileRecoil } from '@/recoil/profiles/hooks';
 
-const Unjail = (props: {
-  message: MsgUnjail;
-}) => {
+const Unjail: FC<{ message: MsgUnjail }> = (props) => {
   const { message } = props;
   const validator = useProfileRecoil(message.validatorAddress);
   const validatorMoniker = validator ? validator?.name : message.validatorAddress;
@@ -93,21 +88,13 @@ const Unjail = (props: {
     <Typography>
       <Trans
         i18nKey="message_contents:txUnjailContent"
-        components={[
-          (
-            <Name
-              address={message.validatorAddress}
-              name={validatorMoniker}
-            />
-          ),
-        ]}
+        components={[<Name address={message.validatorAddress} name={validatorMoniker} />]}
       />
     </Typography>
   );
 };
 
 export default Unjail;
-
 ```
 
 Import and export your component in `packages/ui/src/components/msg/index.ts`
