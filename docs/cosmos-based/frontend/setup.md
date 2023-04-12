@@ -6,26 +6,27 @@ sidebar_position: 1
 Docs curently based on: `v3.0.0`
 
 :::info
-Requires [bdjuno](https://github.com/forbole/bdjuno) to be on at least `v1.1.0` release to support hasura actions(GraphQL API server).
+Requires [BDJuno](https://github.com/forbole/bdjuno) to be on at least `v1.1.0` release to support hasura actions(GraphQL API server).
 :::
 
 Since `v3.0.0`, we have merged every chain's Big Dipper UI to be in a single branch according to the [monorepo](https://en.wikipedia.org/wiki/Monorepo) concept.
 
-The following will teach you how to add your own project to this repo and run big dipper 2.0 ui for your own explorer. If you have any other questions please feel free to open an [issue](https://github.com/forbole/big-dipper-2.0-cosmos/issues)
+The following will guide you how to prepare and setup Big Dipper 2.0 UI for your own explorer. If you have any other questions please feel free to open an [issue](https://github.com/forbole/big-dipper-2.0-cosmos/issues) with your enquiry.
 
 ## Clone the repository
 Fork, clone, and check out our [latest release](https://github.com/forbole/big-dipper-2.0-cosmos/releases) for the most stable version or feel free to use the current documentation version.
 
 ```
 $ git clone https://github.com/<user>/big-dipper-2.0-cosmos.git
+$ cd big-dipper-2.0-cosmos/
 $ git checkout tags/[latest release]
 ```
 
 ## Prepare project directory
-To run your own Big Dipper 2.0 UI, you would need a new project directory. The following instructions will guide you to prepare it and we will take `examplenet` as the chain name to illustrate.
+To run your own Big Dipper 2.0 UI, you will need to create new project directory. The following instructions will guide you how to correctly prepare it. For this example we will take `examplenet` as the chain name to illustrate it.
 
 ### Use the base project to create your own project
-1. __Rename Directory__: The base project directory is `apps/web`. Since our chain is `examplenet`, we will rename it to `apps/web-examplenet`. Now the project name is `web-examplenet`.
+1. __Rename Directory__: Duplicate `apps/web` base project directory and rename it according to the chain name, in our case we will rename it to `apps/web-examplenet`.
 2. __Update `package.json`__: Update the workspace name with the project name `web-examplenet` in `apps/web-examplenet/package.json` at line 2:
 ```json {2}
 {
@@ -36,8 +37,8 @@ To run your own Big Dipper 2.0 UI, you would need a new project directory. The f
 }
 ```
 
-### Remove unecessary projects (optional)
-Under the `apps/` directory, you may find many projects such as `web-agoric`, `web-akash`..., etc. To shrink the project size, we can simply delete those `apps/web-*` directories and keep just `apps/web-examplenet`.
+### Remove unnecessary projects (optional)
+Under the `apps/` directory, you may find many projects such as `web-agoric`, `web-akash`..., etc. To reduce the project size, you can simply delete those `apps/web-*` directories and keep just `apps/web-examplenet`.
 
 ## Prepare the config files
 
@@ -53,11 +54,11 @@ The chain config file is located at `apps/web-examplenet/src/chain.json`. To cus
 2. For the rest of the configs, including colors, themes, endpoints, etc., check [chain config reference](chain-config.md) for a better understanding of what each section and field refers to.
 
 ### General Config
-In `packages/shared-utils/configs/general.json`, **update the json** to give proper maintainer credits as well as a way for users to submit bugs/ issues.
+In `src/configs/general_config.json`, **update the json** to give proper maintainer credits as well as a way for users to submit bugs/issues.
 For a better understanding of what each section and field refers to, please read the [general config reference](general-config.md).
 
 :::info
-We will not be handling any opened issues directly related to your explorer as we won't have the proper info
+We will not be handling any opened issues directly related to your explorer as we won't have the proper info.
 :::
 
 ```json
@@ -73,16 +74,30 @@ We will not be handling any opened issues directly related to your explorer as w
 }
 ```
 
+
+### Enviroment Variables
+Create `.env` file inside the root of the project and update the environment variables
+
+``` shell
+  GRAPHQL_URL=http://localhost:8080/v1/graphql
+  GRAPHQL_WS=ws://localhost:8080/v1/graphql
+  NODE_ENV=development
+  PORT=3000
+  RPC_WEBSOCKET=http://localhost:26657/websocket
+  NEXT_PUBLIC_CHAIN_TYPE=mainnet
+  PROJECT_NAME=web-examplenet
+```
+
 ## Add images
 
 ### Add logo and icon files
 The logos and icons are located at `packages/shared-utils/assets/logos/*.svg` & `packages/shared-utils/assets/icons/*.svg`. 
 
-Let's add our logo under `packages/shared-utils/assets/logos/` and our icon under `packages/shared-utils/assets/icons/`. Same, you can simply remove the unnecessary logos and icons to shrink the project size.
+Add your chain logo under `packages/shared-utils/assets/logos/examplenet-light.svg` and your chain icon under `packages/shared-utils/assets/icons/examplenet-light.svg`. To reduce the project size you can remove unnecessary logos and icons inside those folders. 
 
 
 ### Import images
-The logos and icons are imported in `packages/ui/src/components/ChainIcon/index.tsx`. We can now delete the uneccessary imports of other chains in this file and add our `examplenet` logo and icon as follow:
+The logos and icons are imported in `packages/ui/src/components/ChainIcon/index.tsx`. You can now delete the uneccessary imports of other chains in this file and add our `examplenet` logo and icon as follow:
 
 ```ts
 import examplenetIconLight from 'shared-utils/assets/icons/examplenet-light.svg';
@@ -101,7 +116,7 @@ import examplenetLogoLight from 'shared-utils/assets/logos/examplenet-light.svg'
 
 <details>
 
-<summary> this file should look like: </summary>
+<summary>Example of index.tsx: </summary>
 
 ```ts
 import chainCoing from '@/chainConfig';
@@ -125,7 +140,7 @@ const ChainIcon = ({
   chainName = chainCoing().chainName,
   ...props
 }: IconProps) => {
-  const classes = useStyles();
+  const { classes, cx } = useStyles();
 
   let [iconDark, iconLight] =
     type === 'icon' ? [baseIconLight, baseIconLight] : [baseLogoLight, baseLogoLight];
@@ -142,7 +157,7 @@ const ChainIcon = ({
       throw new Error(`chain ${chainName} not supported`);
   }
   return (
-    <span className={classnames(className, classes.container)}>
+    <span className={cx(className, classes.container)}>
       <Image width={0} height={0} src={iconDark} {...props} className={classes.dark} unoptimized />
       <Image
         width={0}
@@ -161,19 +176,19 @@ export default ChainIcon;
 
 </details>
 
-## Check Hasura is in sync with our graphql operations
-In `apps/web-examplenet/codegen.yml` change the __schema__ field to your graphql url to run `yarn run graphql:codegen`. If there are no errors it will regenerate the needed `src/graphql/types.tsx`. If there is an error this can indicate the backend hasura was not setup correctly.
+## Check Hasura is in sync with your graphql operations
+In `apps/web-examplenet/codegen.yml` change the __schema__ field to your graphql url to run `yarn run graphql:codegen`. It will regenerate the needed `src/graphql/types.tsx`. If an error occurs, it can indicate that the backend hasura was not setup correctly.
 
-```yaml {9}
+```yaml {6}
 overwrite: true
-config:
-  # omitOperationSuffix: true
-  skipTypeNameForRoot: true
 generates:
   ./src/graphql/types/general_types.ts:
     documents:
       - 'src/graphql/general/*'
     schema: <your graphql url>
+    config:
+      # omitOperationSuffix: true
+      skipTypeNameForRoot: true
     plugins:
       - "typescript"
       - "typescript-operations"
@@ -191,26 +206,29 @@ $ corepack enable && yarn dev --filter web-examplenet
 ```
 
 ## Build and Run the Docker Image
-1. In `docker-compose.yml`, modify the `web` service under `services` to your own project name, for example: 
-```yaml {1,6}
-  web-examplenet:
-    build:
-      context: .
-      dockerfile: ./docker/web.Dockerfile
-      args:
-        PROJECT_NAME: web-examplenet
-        NEXT_PUBLIC_CHAIN_TYPE: ${NEXT_PUBLIC_CHAIN_TYPE:-mainnet}
-        TURBO_TEAM: ${TURBO_TEAM:-}
-        TURBO_TOKEN: ${TURBO_TOKEN:-}
-    restart: always
-    platform: linux/amd64
-    ports:
-      - 3000:3000
-    networks:
-      - app_network
-```
-
-2. Run `docker-compose up web-examplenet` to build and run the project's docker image
+Run `docker-compose up` to build and run the project's docker image. It reads the args from `.env` file, so if you want to run different project you should update the `PROJECT_NAME` variable inside the `.env` file.
 
 ## List the explorer
-In case you would like to list your explorer among the rest of the BigDipper explorers, you may open a PR to [this Repository](https://github.com/forbole/big-dipper-networks) by modifying the `networks.json` file with your network information.
+If you would like to list your explorer among the rest of the BigDipper explorers, you can open a PR in [this Repository](https://github.com/forbole/big-dipper-networks) with your network information added inside the `networks.json` file.
+
+<details>
+
+<summary>Example of networks.json file </summary>
+
+```yaml 
+[
+    {
+    "name": "exampleNet",
+    "logo": "https://raw.githubusercontent.com/examplenet/examplenet/main/logos/examplenet.svg?sanitize=true",
+    "cover": "https://raw.githubusercontent.com/examplenet/examplenet/main/covers/examplenet.png?sanitize=true",
+    "links": [
+      {
+        "name": "Mainnet",
+        "chain_id": "examplenet-1",
+        "url": "https://examplenet.explorer.net"
+      }
+    ]
+  }
+]
+```
+</details>
