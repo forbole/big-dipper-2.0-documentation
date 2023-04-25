@@ -54,7 +54,7 @@ Server: Docker Engine - Community
 ```
 
 
-Next, you need to install [Go 1.17+](https://golang.org/dl/) and set up its environment variables, to do this run: 
+Next, you need to install [Go 1.18+](https://golang.org/dl/) and set up its environment variables, to do this run: 
 ```shell
 # Install go
 $ sudo snap install go --classic
@@ -71,7 +71,7 @@ $ go version
 ```
 It should return Go version, the output should look similar to this:
 ```shell
-go version go1.18 linux/amd64
+go version go1.19 linux/amd64
 ```
 
 ## Installing BDJuno
